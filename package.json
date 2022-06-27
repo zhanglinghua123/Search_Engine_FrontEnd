@@ -42,6 +42,7 @@
         ]
     },
     "devDependencies": {
+        "@babel/eslint-parser": "^7.18.2",
         "less": "^4.1.3",
         "less-loader": "^11.0.0"
     }
