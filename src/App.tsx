@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { QueryResult } from './page/QueryResult';
 import { Player } from './page/Player';
 import { News } from './page/News';
+
 function App() {
     return (
         <BrowserRouter>

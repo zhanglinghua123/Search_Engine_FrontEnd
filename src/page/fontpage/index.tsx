@@ -1,13 +1,16 @@
+import { QueryDiv } from "../../components/QueryDiv";
 import "./style/index.less"
-import football from  "../../svg/Football2.svg"
+
 export const FontPage = () => {
     const prefixCls = 'fontpage';
     return (
         <div className={`${prefixCls}-head`}>
-            <div className={`${prefixCls}-query`}>有<img style={{
-                backgroundColor:"white",
-                borderRadius:"100%",
-            }} src={football}></img>必答</div>
+            <QueryDiv ContainerStyle={{
+                position: "fixed",
+                top: "10vh",
+                left: "6vw",
+                width: "40vw",
+            }} fontSize={40}></QueryDiv>
         </div>
     );
 };
