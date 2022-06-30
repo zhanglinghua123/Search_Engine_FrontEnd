@@ -9,7 +9,7 @@ export type QueryDivProps = Partial<{
     ContainerStyle: CSSProperties,
     // input 的预显示文本
     PlaceHolder: string,
-    // 字体大小 单位为px
+    // 有球必答字体大小 单位为px
     fontSize: number,
     // 当输入的时候的回调函数
     onChange: (e?: ChangeEvent) => void
