@@ -9,7 +9,7 @@ export const FontPage = () => {
                 position: "fixed",
                 top: "10vh",
                 left: "6vw",
-                width: "40vw",
+                width: "45vw",
             }} fontSize={40}></QueryDiv>
         </div>
     );

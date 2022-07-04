@@ -1,0 +1,54 @@
+.ablility{
+    width: 100%;
+    height:300px;
+}
+.ablility-container{
+    width: 300px;
+    background-color: #f7f7f7;
+    margin-left: 20px;
+    padding: 20px;
+    img{
+        width:18px;
+        height: 18px;
+    }
+
+}
+
+.ability-item-container{
+    text-align: center;
+    display: flex;
+    width:100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top:10px;
+}
+.ability-item{
+    text-align: center;
+}
+.ability-item-contain{
+    padding:20px 0;
+    .ability-item-contain-count(12);
+    p{
+        line-height: 1;
+        margin : 0;
+    }
+    &:last-child{
+        border-bottom:2px solid rgba(0,0,0,0.06); 
+    }
+    &:nth-last-child(2){
+        border-bottom:2px solid rgba(0,0,0,0.06); 
+    }
+}
+.ability-item-contain-count(@number) when ( @number > 0 ) and ( mod(@number,2) = 0){
+    &:nth-child(@{number}) {
+        border-top:2px solid rgba(0,0,0,0.06);
+    }
+    .ability-item-contain-count(@number - 1);
+}
+.ability-item-contain-count(@number) when ( @number > 0 ) and ( mod(@number,2) = 1){
+    &:nth-child(@{number}) {
+        border-right:2px solid rgba(0,0,0,0.06);
+        border-top:2px solid rgba(0,0,0,0.06);
+    }
+    .ability-item-contain-count(@number - 1);
+}

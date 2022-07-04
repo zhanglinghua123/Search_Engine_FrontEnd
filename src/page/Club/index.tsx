@@ -1,21 +1,18 @@
 import { Table } from "../../components/Table"
-import { IntroData, raceColumn, raceData, raceWidth, transferData, transferWidth } from "./testdata"
+import { IntroData, raceColumn, raceData, raceWidth, transferData, transferWidth } from "../Player/testdata"
 import "./index.less"
-import { Intro } from "./component/Intro"
-import { Head } from "./component/Head/Head"
-import { Ability } from "./component/Ablility"
-export const Player = () => {
-    const PrefixCls = "Player"
+import { Intro } from "../Player/component/Intro"
+import { Head } from "../Player/component/Head/Head"
+import { Ability } from "../Player/component/Ablility"
+export const Club = () => {
+    const PrefixCls = "Club"
 
     return (
         <div>
             <Head HeadNameArray={[["首页", "/"], ["搜索", '/result'], ['Github', "https://github.com/zhanglinghua123/MineReactComponentLibrary"]]} ></Head>
             <div className={`${PrefixCls}-container`}>
                 <div>
-                    <Intro IntroArray={IntroData} En_Name="Zhang ling hua" Name="张凌华" ImgDirection="right"
-                        IntroImgUrl="https://sd.qunliao.info/fastdfs5/M00/04/C9/rB8CCl5q_1GAZ-bCAABnrTdScCA444.png"
-                        TeamIcon="https://sd.qunliao.info/fastdfs3/M00/B5/6B/ChOxM1xC0BOAQINeAAALbRfJlAY231.png"
-                        CountryIcon="https://sd.qunliao.info/fastdfs3/M00/B5/75/ChOxM1xC2FiABKB2AADAlIaOOOU133.png"></Intro>
+                    <Intro IntroArray={IntroData} En_Name="Zhang ling hua" Name="张凌华" ImgDirection="left"></Intro>
                     <Table ContainerStyle={{
                         marginTop: "30px",
                         width: "750px"

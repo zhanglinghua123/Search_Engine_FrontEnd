@@ -9,7 +9,7 @@ export type QueryDivProps = Partial<{
     ContainerStyle: CSSProperties,
     // input 的预显示文本
     PlaceHolder: string,
-    // 有球必答字体大小 单位为px
+    // 有球必答字体大小 单位为px 通过这个来调整整个组件的高度 
     fontSize: number,
     // 当输入的时候的回调函数
     onChange: (e?: ChangeEvent) => void
@@ -49,13 +49,12 @@ export const QueryDiv = (props: QueryDivProps) => {
     }, [InputValue])
     const prefixCls = "component";
     return <div className={`${prefixCls}-icon`} style={{ fontSize: `${fontSize}px`, ...ContainerStyle }}>
-        <span>有</span>
         <img className={`${prefixCls}-ball`} style={{
             backgroundColor: "white",
             borderRadius: "100%",
         }} src={football} alt="球"></img>
-        <span>必答</span>
-        <div className={`${prefixCls}-query-content`}>
+        <span>球天下</span>
+        <div className={`${prefixCls}-query-content`} style={{}}>
             <div className={classNames(`${prefixCls}-queryDiv`, {
                 [`${prefixCls}-queryDivNoBottom`]: CompleteContent.length > 0 && InputValue
             })}>

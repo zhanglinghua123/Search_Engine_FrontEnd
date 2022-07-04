@@ -1,0 +1,38 @@
+@prefix : ~"Intro";
+.@{prefix}-container{
+    width: 680px;
+    padding:40px 30px 20px 40px ;
+    background-color: #f7f7f7;
+    .@{prefix}-info{
+        // width:66%;
+        .@{prefix}-Name{
+            color:#333;
+            font-size: 24px;
+        }
+        .@{prefix}-En-Name{
+            margin-top: 10px;
+            color: #999;
+            font-size: 16px;
+        }
+        img{
+            margin-left: 6px;
+            width:25px;
+            height:25px;
+            vertical-align: -5px;
+        }
+    }
+    .@{prefix}-span-container{
+        margin-top: 30px;
+        // width:66%;
+    }
+    .@{prefix}-span{
+        display: inline-block;
+        width:145px;
+        height: 30px;
+        
+        & span:first-child{
+            letter-spacing: 1em;
+            color:#999;
+        }
+    }
+}

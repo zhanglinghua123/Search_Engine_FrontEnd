@@ -5,10 +5,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import {QueryDiv} from "../../components/QueryDiv";
-import {PersonInfo} from "../../components/PersonInfo";
-import {Avatar, Stack} from "@mui/material";
-import {NewsItem} from "../../components/NewsItem";
+import { QueryDiv } from "../../components/QueryDiv";
+import { PersonInfo } from "../../components/PersonInfo";
+import { Avatar, Stack } from "@mui/material";
+import { NewsItem } from "../../components/NewsItem";
 import Paulo from '../../static/Paulo.jpg'
 import Robert from '../../static/Robert.jpg'
 
@@ -57,7 +57,7 @@ export const QueryResult = () => {
             <div className={'queryresult-cont'}>
                 <div className={'queryresult-result'}>
                     <Box>
-                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" sx={{height: '100%'}}>
+                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" sx={{ height: '100%' }}>
                             <Tab label="综合" sx={{ width: '5' }} {...a11yProps(0)} />
                             <Tab label="人物" {...a11yProps(1)} />
                             <Tab label="俱乐部" {...a11yProps(2)} />
@@ -79,14 +79,14 @@ export const QueryResult = () => {
                     </TabPanel>
                 </div>
                 <div className={'queryresult-related'}>
-                    <div style={{marginTop: 80, marginLeft: 20}}>
-                        <div style={{fontSize: 15}}>相关推荐</div>
-                        <Stack direction={"row"} spacing={2} sx={{marginTop: 2}}>
-                            <Avatar sx={{width: 50, height: 50}} src={Paulo}/>
-                            <Avatar sx={{width: 50, height: 50}} src={Robert}/>
-                            <Avatar sx={{width: 50, height: 50}} />
-                            <Avatar sx={{width: 50, height: 50}} />
-                            <Avatar sx={{width: 50, height: 50}} />
+                    <div style={{ marginTop: 80, marginLeft: 20 }}>
+                        <div style={{ fontSize: 15 }}>相关推荐</div>
+                        <Stack direction={"row"} spacing={2} sx={{ marginTop: 2 }}>
+                            <Avatar sx={{ width: 50, height: 50 }} src={Paulo} />
+                            <Avatar sx={{ width: 50, height: 50 }} src={Robert} />
+                            <Avatar sx={{ width: 50, height: 50 }} />
+                            <Avatar sx={{ width: 50, height: 50 }} />
+                            <Avatar sx={{ width: 50, height: 50 }} />
                         </Stack>
                     </div>
                 </div>
