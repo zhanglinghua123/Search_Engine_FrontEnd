@@ -6,12 +6,47 @@ import { Head } from "./component/Head/Head"
 import { Ability } from "./component/Ablility"
 import LoadingPage from "../../components/LoadingPage"
 import { Diamond } from "../../components/Spin"
-
+import Home from "../../static/svg/home.svg"
+import Search from "../../static/svg/search.svg"
+import Github from "../../static/svg/github-fill.svg"
+import Sports from "../../static/svg/sort_sports.svg"
+import News from "../../static/svg/news.svg"
+import Club from "../../static/svg/俱乐部.svg"
 export const Player = () => {
     const PrefixCls = "Player"
     return (
-        <LoadingPage Loading={true} tip="少女祈祷中..." FontColor="#666" tipClassName="loadingpage-diamond-tip" LoadingButton={<Diamond Color="#73DDAB" size="large"></Diamond>}>
-            <Head HeadNameArray={[["首页", "/"], ["搜索", '/result'], ['Github', "https://github.com/zhanglinghua123/MineReactComponentLibrary"]]} ></Head>
+        <LoadingPage Loading={false} tip="少女祈祷中..." FontColor="#666" tipClassName="loadingpage-diamond-tip" LoadingButton={<Diamond Color="#73DDAB" size="large"></Diamond>}>
+            <Head HeadNameArray={[["Home", "/", <img src={Home}></img>],
+            ["Search", '/result', <img src={Search} style={{
+                width: "1.1em",
+                height: "1.1em",
+                verticalAlign: "-0.2em",
+            }}></img>],
+            ["Player", "/player", <img src={Sports} style={{
+                width: "0.9em",
+                height: "0.9em",
+                verticalAlign: "-0.1em",
+                marginRight: "4px"
+            }}></img>],
+            ["Club", "/club", <img src={Club} style={{
+                width: "0.9em",
+                height: "0.9em",
+                verticalAlign: "-0.1em",
+                marginRight: "4px"
+            }}></img>],
+            ["News", '/news', <img src={News} style={{
+                width: "1em",
+                height: "1em",
+                verticalAlign: "-0.1em",
+                marginRight: "4px"
+            }}></img>],
+            ['Github', "https://github.com/zhanglinghua123/MineReactComponentLibrary", <img src={Github} style={{
+                width: "1.1em",
+                height: "1.1em",
+                verticalAlign: "-0.15em",
+                marginRight: "4px"
+            }}></img>],
+            ]}></Head>
             <div className={`${PrefixCls}-container`}>
                 <div>
                     <Intro IntroArray={IntroData} En_Name="Zhang ling hua" Name="张凌华" ImgDirection="right"

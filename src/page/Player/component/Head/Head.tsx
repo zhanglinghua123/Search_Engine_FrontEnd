@@ -6,7 +6,7 @@ import football from "../../../../static/svg/Football2.svg"
 import Name from '../../../../static/picture/name5.png';
 import { QueryDiv } from '../../../../components/QueryDiv';
 type HeadProps = {
-    HeadNameArray?: ([string, string] | ReactNode)[];
+    HeadNameArray?: ([string, string, undefined | ReactNode] | ReactNode)[];
     ImgDirection?: "left" | "right";
 };
 export const Head = (props: HeadProps) => {
@@ -23,7 +23,7 @@ export const Head = (props: HeadProps) => {
                             key={index}
                             className={`${prefixCls}-headcolumn-item`}
                         >
-                            {value[1].length < 20 ? <Link to={value[1]}>{value[0]}</Link> : <a href={value[1]}>{value[0]}</a>}
+                            {value[1].length < 20 ? <Link to={value[1]}>{value[2]}{value[0]}</Link> : <a href={value[1]}>{value[2]}{value[0]}</a>}
                         </div>
                     );
                 } else return value;
@@ -49,7 +49,7 @@ export const Head = (props: HeadProps) => {
                 <span>球天下</span>
             </div> */}
             <QueryDiv ContainerStyle={{
-                color: "black",
+                color: "white",
                 position: "absolute",
                 left: "calc(50vw - 600px)",
             }} fontSize={30}></QueryDiv>
