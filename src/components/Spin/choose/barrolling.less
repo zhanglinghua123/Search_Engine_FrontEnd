@@ -1,0 +1,228 @@
+@import "../style/Spin.less";
+@UpStair : ~"barrolling";
+.@{spin-prefix-cls}-@{UpStair}{
+    &-dot {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height:50px;
+    }
+    
+    &-dot-item{
+        bottom:0;
+        transform-origin: center bottom;
+        position: absolute;
+        display: block;
+        background-color: aqua;
+    }
+    &-dot-ball{
+      border-radius: 100%;
+      display: block;
+      bottom: 20%;
+      position: absolute;
+      
+    }
+    &-size-small {
+      width : 40px;
+      height: 30px;
+      .turnIntoLeftValue(~"& i", 5, 8,~"small");
+    }
+    &-size-small &-dot-item{
+      width: 6px;
+      height:30px;
+    }
+    &-size-small &-dot-ball{
+      width: 6px;
+      height:6px;
+      animation: ball-small 4s infinite;
+  }
+    &-size-middle {
+        width : 50px;
+        height: 40px;
+        .turnIntoLeftValue(~"& i", 5, 10,~"middle");
+    }
+    &-size-middle &-dot-ball{
+      width: 6px;
+      height:6px;
+      animation: ball-middle 4s infinite;
+  }
+    &-size-middle &-dot-item{
+        width:8px;
+        height:40px;
+    }
+    &-size-large{
+        width : 60px;
+        height: 50px;
+        .turnIntoLeftValue(~"& i", 5, 12,~"large");
+    }
+    &-size-large &-dot-ball{
+      width: 10px;
+      height:10px;
+      border-radius: 10px;
+      animation: ball-large 4s infinite;
+  }
+    &-size-large &-dot-item{
+        width :10px;
+        height:50px;
+    }
+} 
+.getBarUp(@class){
+  @barUp1 : ~"barUp1-@{class}";
+  @barUp2 : ~"barUp2-@{class}";
+  @barUp3 : ~"barUp3-@{class}";
+  @barUp4 : ~"barUp4-@{class}";
+  @barUp5 : ~"barUp5-@{class}";
+@keyframes @barUp1 { 
+    0% {
+      transform: scale(1, .2);
+    }
+    40%{
+      transform: scale(1, .2);
+    }
+    50% {
+      transform: scale(1, 1);
+    }
+    90% {
+      transform: scale(1,1);
+    }
+    100% {
+      transform: scale(1,.2);
+    }
+  }
+  @keyframes @barUp2 { 
+    0% {
+      transform: scale(1, .4);
+    }
+    40% {
+      transform: scale(1, .4);
+    }
+    50% {
+      transform: scale(1, .8);
+    }
+    90% {
+      transform: scale(1, .8);
+    }
+    100% {
+      transform: scale(1, .4);
+    }
+  }
+  @keyframes @barUp3 { 
+    0% {
+      transform: scale(1, .6);
+    }
+    100% {
+      transform: scale(1, .6);
+    }
+  }
+  @keyframes @barUp4 { 
+    0% {
+      transform: scale(1, .8);
+    }
+    40% {
+      transform: scale(1, .8);
+    }
+    50% {
+      transform: scale(1, .4);
+    }
+    90% {
+      transform: scale(1, .4);
+    }
+    100% {
+      transform: scale(1, .8);
+    }
+  }
+  @keyframes @barUp5 { 
+    0% {
+      transform: scale(1, 1);
+    }
+    40% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1, .2);
+    }
+    90% {
+      transform: scale(1, .2);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+}
+.turnIntoLeftValue(@class,@i,@gap,@size) when(@i>0){
+    @{class}:nth-child(@{i}){
+        left : @gap*( @i - 1 ) + 0px;
+        animation: ~"barUp@{i}-@{size}" 4s infinite;
+    }
+    .turnIntoLeftValue(@class, @i - 1, @gap,@size)
+} 
+
+// 代表每个元素的间隔 与 宽度 与 高度
+.BallUpMove(@class,@gap,@width,@height){
+  @keyframes @class {
+    0% {
+      transform: translate(0, 0);
+    }
+    5% {
+      transform: translate(0.5 * (@width + @gap), -1.4 * @height);
+    }
+    10% {
+      transform: translate(@width + @gap, -1 * @height)
+    }
+    17% {
+      transform: translate(1.5 * (@width + @gap), -2.4 * @height)
+    }
+    20% {
+      transform: translate(2 * (@width + @gap), -2 * @height)
+    }
+    27% {
+      transform: translate(2.5 * (@width + @gap), -3.4 * @height)
+    }
+    30% {
+      transform: translate(3 * (@width + @gap), -3 * @height)
+    }
+    37% {
+      transform: translate(3.5 * (@width + @gap), -4.4 * @height)
+    }
+    40% {
+      transform: translate(4 * (@width + @gap), -4 * @height)
+    }
+    50% {
+      transform: translate(4 * (@width + @gap), 0)
+    }
+    57% {
+      transform: translate(3.5 * (@width + @gap), -1.4 * @height)
+    }
+    60% {
+      transform: translate(3 * (@width + @gap), -1 * @height)
+    }
+    67% {
+      transform: translate(2.5 * (@width + @gap), -2.4 * @height)
+    }
+    70% {
+      transform: translate(2 * (@width + @gap), -2 * @height)
+    }
+    77% {
+      transform: translate(1.5 * (@width + @gap), -3.4 * @height)
+    }
+    80% {
+      transform: translate((@width + @gap), -3 * @height)
+    }
+    87% {
+      transform: translate(0.5 * (@width + @gap), -4.4 * @height)
+    }
+    90% {
+      transform: translate(0, -4 * @height)
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+  
+}
+.BallUpMove(~"ball-large", 2, 10px, 10px);
+.BallUpMove(~"ball-middle", 2, 8px, 8px);
+.BallUpMove(~"ball-small", 2, 6px, 6px);
+.getBarUp(~"small");
+.getBarUp(~"middle");
+.getBarUp(~"large");

@@ -1,0 +1,75 @@
+@CirCle : ~"circle";
+@spin-prefix-cls : ~"my-prefix-spin";
+.@{spin-prefix-cls}-@{CirCle}{
+    // .CirCleOut(~"&",6,~"#0DC9F3",~"#D6DBDF",54,4px,1,~"3s");
+    // .CirCleOut(~"&",4,~"#F3250D",~"#D6DBDF",38,4px,2,~"2.5s");
+    // .CirCleOut(~"&",2,~"#F7F9F9",~"#D6DBDF",22,4px,3,~"2s");
+    .CirCleOut(~"&-middle",6,~"#FF0000 ",~"#D6DBDF",54,2px,1);
+    .CirCleOut(~"&-middle",4,~"#1E90FF",~"#D6DBDF",46,2px,2);
+    .CirCleOut(~"&-middle",2,~"#FFFFFF",~"#D6DBDF",38,2px,3);
+    .CirCleOut(~"&-small",6,~"#FF0000 ",~"#D6DBDF",40,1px,1);
+    .CirCleOut(~"&-small",4,~"#1E90FF",~"#D6DBDF",36,1px,2);
+    .CirCleOut(~"&-small",2,~"#FFFFFF",~"#D6DBDF",32,1px,3);
+    .CirCleOut(~"&-large",6,~"#FF0000 ",~"#D6DBDF",70,3px,1);
+    .CirCleOut(~"&-large",4,~"#1E90FF",~"#D6DBDF",58,3px,2);
+    .CirCleOut(~"&-large",2,~"#FFFFFF",~"#D6DBDF",46,3px,3);
+    &-left {
+        animation-iteration-count: infinite;
+        animation-name: DivRotateLeft;
+    }
+    &-right{
+        animation-name: DivRotateRight ;
+        animation-iteration-count: infinite;
+    }
+}
+@keyframes DivRotateLeft {
+    50% {
+        transform: rotate(180deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+@keyframes DivRotateRight {
+    50% {
+        transform: rotate(-180deg);
+    }
+    100%{
+        transform: rotate(-360deg);
+    }
+}
+.CirCleOut(@class,@Num,@color1,@color2,@base,@border,@place) {
+    @gap : 2 * @border;
+    @{class}-Out@{Num}{
+        display: inline-block;
+        width: @base -  @gap + 0px;
+        height : @base - @gap   + 0px;
+        border:@border solid #FFF;
+        .colorPlace(@place,@color1,@border);
+        border-radius: 100%;
+    }
+    @Num-1 : @Num - 1;
+    @{class}-Out@{Num-1}{
+        display: inline-block;
+        width: @base - @gap * 2 + 0px;
+        height : @base - @gap * 2 + 0px;
+        border:@border solid #FFF;
+        .colorPlace(@place,@color2,@border);
+        border-radius: 100%;
+     
+        // animation: DivRotate @period infinite;
+    }
+}
+.colorPlace (@a,@color,@border) when (@a = 1){
+    border-left: @border solid @color; //左边有1像素黑色的实线
+}
+.colorPlace (@a,@color,@border) when (@a = 2){
+    border-top: @border solid @color; //左边有1像素黑色的实线
+}
+.colorPlace (@a,@color,@border) when (@a = 3){
+    border-right: @border solid @color; //左边有1像素黑色的实线
+
+}
+.colorPlace (@a,@color,@border) when (@a = 4){
+    border-bottom: @border solid @color; //左边有1像素黑色的实线
+}

@@ -1,0 +1,47 @@
+.size(@width; @height) {
+  width: @width;
+  height: @height;
+}
+
+.square(@size) {
+  .size(@size; @size);
+}
+
+@spin-dot-size-sm: 15px;
+@spin-dot-size-mid:22.5px;
+@spin-dot-size-lg:30px;
+@spin-prefix-cls : ~"my-prefix-spin";
+@spin-dot-size : '16px';
+@primary-color: 'blue';
+.@{spin-prefix-cls}-container{
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  top : 50%;
+  // left: 50%;
+  transform:translateY(-50%);
+}
+.@{spin-prefix-cls}-container-container{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+//  提示文本的less
+.@{spin-prefix-cls}-message{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  &-large{
+    transform: scale(2);
+    // font-size: 0.5*@spin-dot-size-lg;
+    // margin-left: 0.1*@spin-dot-size-lg;
+  }
+  &-middle{
+    transform: scale(1.5);
+    // margin-left: 0.1*@spin-dot-size-mid;
+
+  }
+  &-small{
+    transform: scale(1);
+    // margin-left: 0.1*@spin-dot-size-sm;
+  }
+  // text-align: center;
+}
