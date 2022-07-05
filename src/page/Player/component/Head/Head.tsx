@@ -51,7 +51,7 @@ export const Head = (props: HeadProps) => {
             <QueryDiv ContainerStyle={{
                 color: "black",
                 position: "absolute",
-                left: "calc(50vw - 550px)",
+                left: "calc(50vw - 600px)",
             }} fontSize={30}></QueryDiv>
         </div>
     );
