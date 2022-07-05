@@ -4,6 +4,7 @@ import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
+import {Pagination, PaginationItem} from "@mui/material";
 import Box from '@mui/material/Box';
 import { QueryDiv } from "../../components/QueryDiv";
 import { PersonInfo } from "../../components/PersonInfo";
@@ -54,6 +55,10 @@ export const QueryResult = () => {
 
     return (
         <Box sx={{ width: '100%' }}>
+            {/*<div style={{width: '50%'}}>*/}
+            {/*    <QueryDiv />*/}
+            {/*</div>*/}
+
             <div className={'queryresult-cont'}>
                 <div className={'queryresult-result'}>
                     <Box>
@@ -65,8 +70,19 @@ export const QueryResult = () => {
                         </Tabs>
                     </Box>
                     <TabPanel value={value} index={0}>
+
                         <PersonInfo></PersonInfo>
-                        <NewsItem></NewsItem>
+                        <NewsItem title={'一波三折!曝C罗正式加盟罗马,双方已经达成协议,7月7日官宣'}
+                        time={'12小时前 '} short={'而在众多传言中，关于C罗即将加盟罗马的消息，引发球迷广泛讨论。根据最新爆料，按照罗马名宿迪利维奥的说法，C罗已经和罗马达成协议，预计双方会在7月7日正式对外官宣。不过，迪利维奥并...'}></NewsItem>
+                        <Pagination
+                            count={10}
+                            renderItem={(item) => (
+                                <PaginationItem
+                                    {...item}
+                                />
+                            )}
+                            sx={{width: '60%', margin: 'auto', marginTop: 10}}
+                        />
                     </TabPanel>
                     <TabPanel value={value} index={1}>
 
@@ -91,6 +107,7 @@ export const QueryResult = () => {
                     </div>
                 </div>
             </div>
+
         </Box>
     );
 }
