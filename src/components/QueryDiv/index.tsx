@@ -49,12 +49,6 @@ export const QueryDiv = (props: QueryDivProps) => {
     }, [InputValue])
     const prefixCls = "component";
     return <div className={`${prefixCls}-icon`} style={{ fontSize: `${fontSize}px`, ...ContainerStyle }}>
-        {/*<img className={`${prefixCls}-ball`} style={{*/}
-        {/*    backgroundColor: "white",*/}
-        {/*    borderRadius: "100%",*/}
-        {/*}} src={football} alt="球"></img>*/}
-        {/*<span>球天下</span>*/}
-        {/*<img src={football} style={{color: "white", width: '40%'}}/>*/}
         <div className={`${prefixCls}-query-content`} style={{}}>
             <div className={classNames(`${prefixCls}-queryDiv`, {
                 [`${prefixCls}-queryDivNoBottom`]: CompleteContent.length > 0 && InputValue

@@ -1,7 +1,8 @@
-import axios, { Axios } from "axios";
+import axios, { Axios, AxiosRequestConfig } from "axios";
+import { PlayerObject } from "../page/Player";
 const AxiosInstance =  axios.create({
     // 基础的url
-    baseURL:"",
+    baseURL:"http://121.196.150.158:8080/",
     // 超时配置
     timeout:3000,
     headers:{
@@ -32,4 +33,5 @@ AxiosInstance.interceptors.response.use(response => {
     // loadingInstance.close()
     return Promise.reject(error)
   })
+
 export default AxiosInstance

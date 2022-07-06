@@ -45,7 +45,10 @@
     margin:0;
     box-sizing: border-box;
     background-color: white;
+    // border: 2px solid rgba(0,0,0,0.06) ;
     li{
+        border:1px solid rgba(0,0,0,0.06);
+        border-top: none;
         cursor: pointer;
         padding: 0 0.3em;
         height:45px;
@@ -64,6 +67,7 @@
             letter-spacing: 0;
         }
     }
+    // .li-border(12);
 }
 .@{prefix}-query-content{
     display: flex;
@@ -79,7 +83,8 @@
         flex:1;
         background-color: white;
         margin-top: 0.125em;
-        box-shadow:0 2px 4px rgb(0 0 0 / 30%);
+        border: 2px solid rgba(0,0,0,0.06);
+        // box-shadow:0 2px 4px rgb(0 0 0 / 30%);
         align-items: center;
         height: 1em;
         border-radius: 0.5em;
@@ -100,3 +105,12 @@
         border-bottom-right-radius:0 ;
     }
 }
+// .li-border(@number) when(mod(@number,2) = 1) and (@number > 0) {
+//     & li:nth-child(@{number}){
+//     }
+// }
+// .li-border(@number) when(mod(@number,2) = 0) and (@number > 0) {
+//     & li:nth-child(@{number}){
+        
+//     }
+// }

@@ -1,5 +1,5 @@
 import './style/index.less'
-import {Button, Chip, Divider, Stack} from "@mui/material";
+import { Button, Chip, Divider, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 
 export const News = () => {
@@ -33,7 +33,8 @@ export const News = () => {
         return <Stack direction="row" spacing={1}>
             {
                 item.tags.map((i) => {
-                    return <Chip label={i} variant={'outlined'} />}
+                    return <Chip label={i} variant={'outlined'} />
+                }
                 )
             }
         </Stack>
@@ -41,7 +42,7 @@ export const News = () => {
     const content = () => {
         return (
             item.content.map((i) => {
-                return <div style={{marginTop: 10}}>
+                return <div style={{ marginTop: 10 }}>
                     {i}
                 </div>
             })
@@ -49,30 +50,30 @@ export const News = () => {
     }
 
     return (
-        <Box sx={{width: '100%'}}>
-        <div className={'news-cont'}>
-        <div className={'news-title'}>
-            {item.title}
-        </div>
-        <div style={{marginLeft: 20, fontSize: 15, color: '#888585', display: 'flex'}}>
-            <div style={{flex: 1}}>
-                {item.author}
-            </div>
-            <div style={{flex: 6}}>
-                {item.published_time}
-            </div>
-        </div>
-            <div style={{marginLeft: 20, marginTop: 20}}>
-                <div style={{color: '#888585', fontSize: 15}}>
-                    {tag()}
+        <Box sx={{ width: '100%' }}>
+            <div className={'news-cont'}>
+                <div className={'news-title'}>
+                    {item.title}
+                </div>
+                <div style={{ marginLeft: 20, fontSize: 15, color: '#888585', display: 'flex' }}>
+                    <div style={{ flex: 1 }}>
+                        {item.author}
+                    </div>
+                    <div style={{ flex: 6 }}>
+                        {item.published_time}
+                    </div>
+                </div>
+                <div style={{ marginLeft: 20, marginTop: 20 }}>
+                    <div style={{ color: '#888585', fontSize: 15 }}>
+                        {tag()}
+                    </div>
+                </div>
+                <Divider sx={{ padding: '10px 20px' }} />
+                <div className={'news-content'}>
+                    {content()}
+                    <img style={{ marginTop: 20 }} src={'https://xyimg1.qunliao.info/fastdfs6/M00/68/35/720x-/-/-/rBUCgGHKejaAIKWTAADcHA2h-Y0987.jpg?watermark/1/image/aHR0cDovL2ltZzEuZG9uZ3FpdWRpLmNvbS9mYXN0ZGZzMi9NMDAvMkEvRTIvQ2hPcU0xb1MtZVdBUERxM0FBQkE1VWdyQlQ4MTQyLnBuZz9pbWFnZVZpZXcyLzAvdy8xMTY=/dissolve/100/dx/14/dy/10'} />
                 </div>
             </div>
-        <Divider sx={{padding: '10px 20px'}}/>
-        <div className={'news-content'}>
-            {content()}
-            <img style={{marginTop: 20}} src={'https://xyimg1.qunliao.info/fastdfs6/M00/68/35/720x-/-/-/rBUCgGHKejaAIKWTAADcHA2h-Y0987.jpg?watermark/1/image/aHR0cDovL2ltZzEuZG9uZ3FpdWRpLmNvbS9mYXN0ZGZzMi9NMDAvMkEvRTIvQ2hPcU0xb1MtZVdBUERxM0FBQkE1VWdyQlQ4MTQyLnBuZz9pbWFnZVZpZXcyLzAvdy8xMTY=/dissolve/100/dx/14/dy/10'} />
-        </div>
-    </div>
 
         </Box>
     )

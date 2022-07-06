@@ -16,9 +16,11 @@ export type TableProps = {
     ContainerStyle?: CSSProperties
     // Column Width Array
     ColumnWidthArray: (string | number)[]
+    //  No data style
+    ColumnNoDataStyle?: CSSProperties
 }
 export const Table = (props: TableProps) => {
-    const { Column, TableData, Title, TitleExtra, ColumnColorArray = ["#fff", "#f7f7f7"], ContainerStyle, ColumnWidthArray } = props
+    const { Column, TableData, Title, TitleExtra, ColumnColorArray = ["#fff", "#f7f7f7"], ContainerStyle, ColumnWidthArray, ColumnNoDataStyle } = props
     const prefixCls = "Table"
     // 获取Column宽度
     const getWidth = (width: string | number | undefined) => {
@@ -37,7 +39,7 @@ export const Table = (props: TableProps) => {
             })}
         </div>
         <div className={`${prefixCls}-content`}>
-            {TableData?.map((val, index) => {
+            {TableData?.[0].length !== 0 ? TableData?.map((val, index) => {
                 return <div style={{
                     backgroundColor: ColumnColorArray[index % ColumnColorArray.length],
                 }}>
@@ -47,7 +49,7 @@ export const Table = (props: TableProps) => {
                         }}>{item}</span>
                     })}
                 </div>
-            })}
+            }) : <div className="1212" style={ColumnNoDataStyle}>暂无数据</div>}
         </div>
     </div >
 }
