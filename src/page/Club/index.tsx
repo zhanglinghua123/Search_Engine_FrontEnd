@@ -4,48 +4,35 @@ import "./index.less"
 import { Intro } from "../Player/component/Intro"
 import { Head } from "../../components/Head/Head"
 import { Ability } from "../Player/component/Ablility"
-import Home from "../../static/svg/home.svg"
-import Search from "../../static/svg/search.svg"
-import Github from "../../static/svg/github-fill.svg"
-import Sports from "../../static/svg/sort_sports.svg"
-import News from "../../static/svg/news.svg"
-import club from "../../static/svg/俱乐部.svg"
+import { TypicalHead } from "../../components/Head/typical"
+import LoadingPage from "../../components/LoadingPage"
+import { Diamond } from "../../components/Spin"
+import { useState } from "react"
+export type ClubItem = {
+    id: string                          //俱乐部ID
+    club_name: string                   //俱乐部名字
+    club_english_name: string           //俱乐部英文名
+    club_img_url: string                //俱乐部图片url
+    start_time: string                  //俱乐部成立时间
+    country: string                     //俱乐部所属国家
+    city: string                        //俱乐部城市
+    home_court: string                  //俱乐部主场
+    capacity: string                    //俱乐部主场容量
+    telephone: string                   //俱乐部电话
+    email: string                       //邮箱
+    address: string                     //地点
+    game_data: Object[]                 //游戏数据
+    glory_data: string                   //荣誉信息
+}
 export const Club = () => {
     const PrefixCls = "Club"
-
+    // 是否显示差错提示框
+    const [error, Seterror] = useState<boolean>(false);
+    // 是否显示Loading状态
+    const [Loading, SetLoading] = useState<boolean>(false);
     return (
-        <div>
-            <Head HeadNameArray={[["Home", "/", <img src={Home}></img>],
-            ["Search", '/result', <img src={Search} style={{
-                width: "1.1em",
-                height: "1.1em",
-                verticalAlign: "-0.2em",
-            }}></img>],
-            ["Player", "/player", <img src={Sports} style={{
-                width: "0.9em",
-                height: "0.9em",
-                verticalAlign: "-0.1em",
-                marginRight: "4px"
-            }}></img>],
-            ["Club", "/club", <img src={club} style={{
-                width: "0.9em",
-                height: "0.9em",
-                verticalAlign: "-0.1em",
-                marginRight: "4px"
-            }}></img>],
-            ["News", '/news', <img src={News} style={{
-                width: "1em",
-                height: "1em",
-                verticalAlign: "-0.1em",
-                marginRight: "4px"
-            }}></img>],
-            ['Github', "https://github.com/zhanglinghua123/MineReactComponentLibrary", <img src={Github} style={{
-                width: "1.1em",
-                height: "1.1em",
-                verticalAlign: "-0.15em",
-                marginRight: "4px"
-            }}></img>],
-            ]}></Head>
+        <LoadingPage showErrorMessage={error} Loading={Loading} tip="少女祈祷中..." FontColor="#666" tipClassName="loadingpage-diamond-tip" LoadingButton={<Diamond Color="#73DDAB" size="large"></Diamond>}>
+            <TypicalHead></TypicalHead>
             <div className={`${PrefixCls}-container`}>
                 <div>
                     <Intro IntroArray={IntroData} En_Name="Zhang ling hua" Name="张凌华" ImgDirection="left"></Intro>
@@ -64,6 +51,6 @@ export const Club = () => {
                 </div>
                 <Ability name={["射门", "盘带", "防守", "力量", "传球", "速度"]} data={[90, 100, 30, 30, 30, 30]} count={91}></Ability>
             </div>
-        </div>
+        </LoadingPage >
     )
 }
