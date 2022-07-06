@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { FontPage } from './page/Fontpage/index';
+import { FontPage } from './page/fontpage/index';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { QueryResult } from './page/QueryResult';
 import { Player } from './page/Player';

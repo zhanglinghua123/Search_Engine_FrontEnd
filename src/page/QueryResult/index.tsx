@@ -12,6 +12,7 @@ import { Avatar, Stack } from "@mui/material";
 import { NewsItem } from "../../components/NewsItem";
 import Paulo from '../../static/Paulo.jpg'
 import Robert from '../../static/Robert.jpg'
+import logo from '../../static/logo.png'
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -55,9 +56,10 @@ export const QueryResult = () => {
 
     return (
         <Box sx={{ width: '100%' }}>
-            {/*<div style={{width: '50%'}}>*/}
-            {/*    <QueryDiv />*/}
-            {/*</div>*/}
+            <div style={{display: 'flex', alignItems: 'center'}}>
+                <img src={logo} style={{width: '12%', height: '12%'}}/>
+                <QueryDiv ContainerStyle={{width: '45vw'}} fontSize={35}/>
+            </div>
 
             <div className={'queryresult-cont'}>
                 <div className={'queryresult-result'}>

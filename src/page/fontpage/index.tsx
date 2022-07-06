@@ -1,6 +1,4 @@
-import LoadingPage from "../../components/LoadingPage";
 import { QueryDiv } from "../../components/QueryDiv";
-import { FourSphereRotate } from "../../components/Spin";
 import "./style/index.less"
 
 export const FontPage = () => {
