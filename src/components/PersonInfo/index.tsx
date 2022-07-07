@@ -1,38 +1,53 @@
 import * as React from 'react'
-import {Avatar, Box} from "@mui/material";
+import {Avatar, Box, Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import './index.less'
 import Cristiano from '../../static/Cristiano.jpg'
 import m from '../../static/m.jpg'
 
-export const PersonInfo = () =>{
+interface PersonInfoProps {
+    children?:React.ReactNode;
+    imgUrl: string;
+    name: String;
+    nameEng: String;
+    country: String;
+    birthDate: String;
+    location: String;
+    age: String;
+    height: String;
+    weight: String;
+}
+
+export const PersonInfo = (props: PersonInfoProps) =>{
+    const {children, imgUrl, name, nameEng, country, birthDate, location, age, weight, height, ...other} = props;
     return (
-        <div>
-            <Box sx={{ width: '100%', borderRadius: 3, boxShadow: '#20202020 2px 2px 10px 1px', marginTop: 1 }}>
-                <div className={'person-cont'}>
+        <Card sx={{marginTop: '10px'}}>
+            <CardActionArea>
+                <CardContent sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <div className={'person-avatar'}>
-                        <Avatar sx={{width: 80, height: 80}} alt="1" src={Cristiano} />
+                        <Avatar sx={{width: 80, height: 80}} alt="1" src={imgUrl} />
                     </div>
                     <div className={'person-profile'}>
-                        <div className={'name'}>C罗</div>
-                        <div className={'info'}>出生日期：1985-02-05</div>
-                        <div className={'info'}>俱乐部：曼彻斯特联足球俱乐部</div>
-                        <div className={'info'}>专业特点：技术出众，速度惊人</div>
+                        <Typography gutterBottom variant="h5" component="div" sx={{color: '#234a9b', display: 'flex', alignItems: 'center'}}>
+                            {name}
+                            <div style={{color: 'gray', fontSize: 16, marginLeft: '10px'}}>{nameEng}</div>
+                        </Typography>
+                        <div style={{display: 'flex'}}>
+                            <Typography variant="body2" color="text.secondary"
+                                        sx={{fontSize: 13, flex: 1}}>
+                                <div className={'info'}>出生日期：{birthDate}</div>
+                                <div className={'info'}>国家： {country}</div>
+                                <div className={'info'}>位置： {location}</div>
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary"
+                                        sx={{fontSize: 13, flex: 1}}>
+                                <div className={'info'}>年龄：{age}</div>
+                                <div className={'info'}>身高： {height}</div>
+                                <div className={'info'}>体重： {weight}</div>
+                            </Typography>
+                        </div>
                     </div>
-                </div>
-            </Box>
-            <Box sx={{ width: '100%', borderRadius: 3, boxShadow: '#20202020 2px 2px 10px 1px', marginTop: 2 }}>
-                <div className={'person-cont'}>
-                    <div className={'person-avatar'}>
-                        <img src={m} style={{width: 80, height: 80}}/>
-                    </div>
-                    <div className={'person-profile'}>
-                        <div className={'name'}>曼彻斯特联足球俱乐部</div>
-                        <div className={'info'}>赛事：英格兰足球超级联赛</div>
-                        <div className={'info'}>知名人物：弗格森、巴斯比、查尔顿</div>
-                        <div className={'info'}>主要荣誉：英格兰顶级联赛冠军20次，英格兰足总杯冠军12次</div>
-                    </div>
-                </div>
-            </Box>
-        </div>
+                </CardContent>
+            </CardActionArea>
+        </Card>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { FontPage } from './page/Fontpage/index';
+import { FontPage } from './page/fontpage/index';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { QueryResult } from './page/QueryResult';
 import { Player } from './page/Player';
@@ -46,7 +46,7 @@ function App() {
                     <Route path="/" element={<FontPage></FontPage>}></Route>'
                     <Route path="/result" element={<QueryResult></QueryResult>}></Route>
                     <Route path="/player/:id" element={<Player></Player>}></Route>
-                    <Route path="/news" element={<News></News>}></Route>
+                    <Route path="/news/:id" element={<News></News>}></Route>
                     <Route path="/club/:id" element={<Club></Club>}></Route>
                 </Routes>
             </div>
