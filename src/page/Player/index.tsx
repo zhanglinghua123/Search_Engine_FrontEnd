@@ -1,17 +1,17 @@
 import { Table } from "../../components/Table"
-import { IntroData, raceColumn, raceData, raceWidth, transferData, transferWidth } from "./testdata"
+import { IntroData, priceWidth, raceColumn, raceData, raceWidth, transferColumn, transferData, transferWidth } from "./constant"
 import "./index.less"
 import { Intro } from "./component/Intro"
 import { Head } from "../../components/Head/Head"
 import { Ability } from "./component/Ablility"
 import LoadingPage from "../../components/LoadingPage"
 import { Diamond } from "../../components/Spin"
-
+import price from "../../static/svg/price.svg"
 import { TypicalHead } from "../../components/Head/typical"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import AxiosInstance from "../../util/axios"
-import { ConvertDataFromIntro, ConvertDataFromTransfer } from "../../util/ConvertData_Player"
+import { ConvertDataFromAbility, ConvertDataFromAbilityColumn, ConvertDataFromGame, ConvertDataFromGlory, ConvertDataFromIntro, ConvertDataFromTransfer } from "./ConvertData_Player"
 // 页面的数据类型
 export type PlayerObject = Partial<{
     ability: {
@@ -21,13 +21,14 @@ export type PlayerObject = Partial<{
         "速度": string,
         "开球": string,
         "手型": string,
+        [key: string]: string
     }
     prestige: number,
     weak_foot: number,
     fancy_technique: number,
     glory_data: Record<string, string[]>
-    transfer_data: Record<string, string[]>
-    game_data: Record<string, string[]>
+    transfer_data: Object[]
+    game_data: Object[]
     id: string                      //球员id
     player_name: string             //球员姓名
     player_english_name: string     //球员英文名
@@ -41,7 +42,7 @@ export type PlayerObject = Partial<{
     number: string                  //球衣号码
     birthday: string                //生日
     habitual_foot: string           //惯用脚
-    [key: string]: string | number | Record<string, string[]> | Object
+    [keys: string]: string | number | Object[] | Object | Record<string, string[]>
 }>
 export const Player = () => {
     const [Loading, SetLoading] = useState<boolean>(true);
@@ -50,7 +51,6 @@ export const Player = () => {
     // 是否显示差错提示框
     const [error, Seterror] = useState<boolean>(false);
     const url = useParams()
-
     // 获取对应的运动员数据
     const GetPlayerObject = async () => {
         const data = await AxiosInstance.request<PlayerObject, PlayerObject>({ url: `/player/${url.id}` }).then((val) => {
@@ -58,7 +58,6 @@ export const Player = () => {
                 // 设置延时 让loading界面加载
                 setTimeout(() => SetLoading(false), 1000)
                 setData(val)
-                console.log(val, "val----")
             } else {
                 // 数据没有的时候 报错
                 return Promise.reject()
@@ -83,15 +82,30 @@ export const Player = () => {
                     <Table ContainerStyle={{
                         marginTop: "30px",
                         width: "750px"
-                    }} ColumnWidthArray={raceWidth} Title="比赛数据" Column={raceColumn} TableData={raceData}></Table>
+                    }} ColumnWidthArray={raceWidth} Title="比赛数据" Column={raceColumn} TableData={ConvertDataFromGame(data)} ColumnNoDataStyle={{
+                        width: "100%",
+                        height: "60px",
+                        backgroundColor: "#f7f7f7",
+                        color: "#888",
+                        textAlign: "center",
+                        lineHeight: "60px"
+                    }}></Table>
                     <Table ContainerStyle={{
                         marginTop: "30px",
                         width: "750px"
-                    }} ColumnWidthArray={raceWidth} Title="荣誉记录" TableData={raceData}></Table>
+                    }} ColumnWidthArray={priceWidth} Title="荣誉记录" TableData={ConvertDataFromGlory(data)} ColumnNoDataStyle={{
+                        width: "100%",
+                        height: "60px",
+                        backgroundColor: "#f7f7f7",
+                        color: "#888",
+                        textAlign: "center",
+                        lineHeight: "60px"
+                    }} FirstColumnKey
+                        FirstColumnIcon={<img src={price} style={{ width: "1.25em", verticalAlign: "-0.25em", filter: "invert(82%) sepia(93%) saturate(1018%) hue-rotate(321deg) brightness(93%) contrast(113%)" }}></img>}></Table>
                     <Table ContainerStyle={{
                         marginTop: "30px",
                         width: "750px"
-                    }} ColumnWidthArray={transferWidth} Title="转会" TableData={ConvertDataFromTransfer(data)} ColumnNoDataStyle={{
+                    }} ColumnWidthArray={transferWidth} Column={transferColumn} Title="转会" TableData={ConvertDataFromTransfer(data)} ColumnNoDataStyle={{
                         width: "100%",
                         height: "60px",
                         backgroundColor: "#f7f7f7",
@@ -100,7 +114,7 @@ export const Player = () => {
                         lineHeight: "60px"
                     }}></Table>
                 </div>
-                <Ability name={["射门", "盘带", "防守", "力量", "传球", "速度"]} data={[90, 100, 30, 30, 30, 30]} count={91}></Ability>
+                <Ability name={ConvertDataFromAbility(data)[0]} data={ConvertDataFromAbility(data)[1]} count={parseInt(data?.ability?.["综合能力"] || "0")} column={ConvertDataFromAbilityColumn(data)}></Ability>
             </div>
         </LoadingPage>
     )
