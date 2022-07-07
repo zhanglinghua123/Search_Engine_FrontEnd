@@ -46,11 +46,14 @@ export const AbilityItem = (props: { value: string, type: { key: string, value: 
 }
 export const Ability = (props: Partial<{
     ContainerStyle: React.CSSProperties,
+    // the table data resource
     data: number[]
     name: string[]
     count: number
+    // the table column 
+    column: { value: string, type: { key: string, value: number | boolean } }[]
 }>) => {
-    const { ContainerStyle, data, name, count } = props
+    const { ContainerStyle, data, name, count, column } = props
     var option: EChartsOption;
 
     option = {
@@ -107,10 +110,9 @@ export const Ability = (props: Partial<{
         }}>
         </div>
         <div className="ability-item-container">
-            <AbilityItem value={"国际声望"} type={{ key: "star", value: 3 }} ></AbilityItem>
-            <AbilityItem value={"国际声望"} type={{ key: "star", value: 3 }}></AbilityItem>
-            <AbilityItem value={"国际声望"} type={{ key: "star", value: 3 }}></AbilityItem>
-            <AbilityItem value={"国际声望"} type={{ key: "foot", value: 3 }}></AbilityItem>
+            {column?.map(val => {
+                return <AbilityItem value={val.value} type={val.type}></AbilityItem>
+            })}
         </div>
     </div >
 }

@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { ReactNode, CSSProperties } from "react"
 import "./index.less"
 type IntroProps = Partial<{
     IntroArray: string[][]
@@ -6,9 +6,10 @@ type IntroProps = Partial<{
     En_Name: string,
     ImgDirection: "left" | "right",
     IntroImgUrl: string,
+    SpecialSpanStyles: Record<number, { SpanOne?: CSSProperties, SpanTwo?: CSSProperties, SpanContainer: CSSProperties }>
 }>
 export const Intro = (props: IntroProps) => {
-    const { IntroArray, Name, En_Name, ImgDirection = "right", IntroImgUrl } = props
+    const { IntroArray, Name, En_Name, ImgDirection = "right", IntroImgUrl, SpecialSpanStyles } = props
     const Prefix = "Intro"
     return <div className={`${Prefix}-container`}>
         <div style={{
@@ -39,10 +40,10 @@ export const Intro = (props: IntroProps) => {
                 </div>
                 <div className={`${Prefix}-span-container`}>
                     {
-                        IntroArray?.map(val => {
-                            return <span className={`${Prefix}-span`}>
-                                <span>{val[0] + ":"}</span>
-                                <span>{val[1]}</span>
+                        IntroArray?.map((val, index) => {
+                            return <span style={SpecialSpanStyles?.[index]?.["SpanContainer"]} className={`${Prefix}-span`}>
+                                <span style={SpecialSpanStyles?.[index]?.["SpanOne"]}>{val[0] + ":"}</span>
+                                <span style={SpecialSpanStyles?.[index]?.["SpanTwo"]}>{val[1]}</span>
                             </span>
                         })
                     }
