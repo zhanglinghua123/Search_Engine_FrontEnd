@@ -13,32 +13,9 @@ import Paulo from '../../static/Paulo.jpg'
 import Robert from '../../static/Robert.jpg'
 import logo from '../../static/logo.png'
 import {ClubInfo} from "../../components/ClubInfo";
-
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}
+import {TabPanel} from "./components/TabPanel";
+import {useEffect, useState} from "react";
+import {NewsObject} from "../News";
 
 function a11yProps(index: number) {
     return {
@@ -78,6 +55,35 @@ export const QueryResult = () => {
             "伊万-马丁"
         ]
     };
+
+    const news2 = {
+        "_id": "2500008",
+        "title": "2016U23亚洲杯 93一代各队最佳射手盘点 ...",
+        "author": " 懂球号作者: 波黑队长哲科",
+        "published_time": "2021-12-28 10:49",
+        "content": [
+            "2016U23亚洲杯 93一代各队最佳射手盘点 A组篇\n\n卡塔尔最佳射手：7号 艾哈迈德·阿拉丁 6球 赛事金靴\n\n伊朗最佳射手：10号 莫塔哈里 2球\n\n叙利亚最佳射手：8号 奥马尔·赫里宾 3球\n\n中国最佳射手：10号 廖力生 3球"
+        ],
+        "image_url": [
+            "https://xyimg1.qunliao.info/fastdfs6/M00/68/33/720x-/-/-/rBUESWHKeF2AVi09AASy2x3tHgA35.jpeg?watermark/1/image/aHR0cDovL2ltZzEuZG9uZ3FpdWRpLmNvbS9mYXN0ZGZzMi9NMDAvMkEvRTIvQ2hPcU0xb1MtZVdBUERxM0FBQkE1VWdyQlQ4MTQyLnBuZz9pbWFnZVZpZXcyLzAvdy8xMjA=/dissolve/100/dx/14/dy/14",
+            "https://xyimg1.qunliao.info/fastdfs6/M00/68/35/720x-/-/-/rBUCgGHKeJWAWkzWAAB58pDwFjE66.jpeg?watermark/1/image/aHR0cDovL2ltZzEuZG9uZ3FpdWRpLmNvbS9mYXN0ZGZzMi9NMDAvMkEvRTIvQ2hPcU0xb1MtZVdBUERxM0FBQkE1VWdyQlQ4MTQyLnBuZz9pbWFnZVZpZXcyLzAvdy84MA==/dissolve/100/dx/10/dy/10",
+            "https://xyimg1.qunliao.info/fastdfs6/M00/68/33/720x-/-/-/rBUESWHKeKiAV_aGAARx0mAU-Mo14.jpeg?watermark/1/image/aHR0cDovL2ltZzEuZG9uZ3FpdWRpLmNvbS9mYXN0ZGZzMi9NMDAvMkEvRTIvQ2hPcU0xb1MtZVdBUERxM0FBQkE1VWdyQlQ4MTQyLnBuZz9pbWFnZVZpZXcyLzAvdy8xMjA=/dissolve/100/dx/14/dy/14",
+            "https://xyimg1.qunliao.info/fastdfs6/M00/68/33/720x-/-/-/rBUESWHKeMOAb03pAAR2Pyqcfds56.jpeg?watermark/1/image/aHR0cDovL2ltZzEuZG9uZ3FpdWRpLmNvbS9mYXN0ZGZzMi9NMDAvMkEvRTIvQ2hPcU0xb1MtZVdBUERxM0FBQkE1VWdyQlQ4MTQyLnBuZz9pbWFnZVZpZXcyLzAvdy8xMjA=/dissolve/100/dx/14/dy/10",
+            "https://xyimg1.qunliao.info/fastdfs6/M00/68/33/720x-/-/-/rBUESWHKeRSAdTDlAAUbNQUkD1k77.jpeg?watermark/1/image/aHR0cDovL2ltZzEuZG9uZ3FpdWRpLmNvbS9mYXN0ZGZzMi9NMDAvMkEvRTIvQ2hPcU0xb1MtZVdBUERxM0FBQkE1VWdyQlQ4MTQyLnBuZz9pbWFnZVZpZXcyLzAvdy8xMjA=/dissolve/100/dx/14/dy/14",
+            "https://xyimg1.qunliao.info/fastdfs6/M00/68/35/720x-/-/-/rBUCgGHKeR-AO1nQAAB7zq1a4is66.jpeg?watermark/1/image/aHR0cDovL2ltZzEuZG9uZ3FpdWRpLmNvbS9mYXN0ZGZzMi9NMDAvMkEvRTIvQ2hPcU0xb1MtZVdBUERxM0FBQkE1VWdyQlQ4MTQyLnBuZz9pbWFnZVZpZXcyLzAvdy8zNQ==/dissolve/100/dx/10/dy/10",
+            "https://xyimg1.qunliao.info/fastdfs6/M00/68/34/720x-/-/-/rBUESWHKejaAUSixAARCayf2ovs90.jpeg?watermark/1/image/aHR0cDovL2ltZzEuZG9uZ3FpdWRpLmNvbS9mYXN0ZGZzMi9NMDAvMkEvRTIvQ2hPcU0xb1MtZVdBUERxM0FBQkE1VWdyQlQ4MTQyLnBuZz9pbWFnZVZpZXcyLzAvdy8xMjA=/dissolve/100/dx/14/dy/13",
+            "https://xyimg1.qunliao.info/fastdfs6/M00/68/34/720x-/-/-/rBUESWHKexKAZAjUADIG_IJEhso31.jpeg?watermark/1/image/aHR0cDovL2ltZzEuZG9uZ3FpdWRpLmNvbS9mYXN0ZGZzMi9NMDAvMkEvRTIvQ2hPcU0xb1MtZVdBUERxM0FBQkE1VWdyQlQ4MTQyLnBuZz9pbWFnZVZpZXcyLzAvdy8xMjA=/dissolve/100/dx/14/dy/10",
+            "https://xyimg1.qunliao.info/fastdfs6/M00/68/36/720x-/-/-/rBUCgGHKe0SASkbaAAC5hVDo04E14.jpeg?watermark/1/image/aHR0cDovL2ltZzEuZG9uZ3FpdWRpLmNvbS9mYXN0ZGZzMi9NMDAvMkEvRTIvQ2hPcU0xb1MtZVdBUERxM0FBQkE1VWdyQlQ4MTQyLnBuZz9pbWFnZVZpZXcyLzAvdy84NQ==/dissolve/100/dx/10/dy/10"
+        ],
+        "video_url": [],
+        "tags": [
+            "广州",
+            "廖力生",
+            "奥马尔-赫里宾",
+            "艾哈迈德-阿拉丁",
+            "莫塔哈里"
+        ]
+    }
 
     const club = {
         "_id": "50000537",
@@ -343,6 +349,42 @@ export const QueryResult = () => {
 
     const player = {"ability":{},"age":"39岁","birthday":"1982-08-08","country":"塔吉克斯坦","fancy_technique":0,"game_data":[],"glory_data":[null],"height":"178CM","id":"50000002","location":"球员","number":"号","player_english_name":"K. Makhmudov","player_img_url":"https://sd.qunliao.info/fastdfs5/M00/71/65/rB8CCmA_M4uAduEyAAAXFHgaTMk967.jpg","player_name":"马哈茂多夫","prestige":0,"transfer_data":[{"season":"2014-01-01","from_team":"雷加塔达兹","to_team":"杜尚别独立","status":"转会 "}],"weak_foot":0,"weight":"73KG"};
 
+    const [data, setData] = useState<NewsObject[] | undefined>(undefined)
+    const val: NewsObject[] = new Array(20);
+    for(let i = 0; i < 10; i ++){
+        val[i] = news;
+        val[i + 10] = news2;
+    }
+
+
+    const refreshData = (index: number) => {
+        setData(val.slice((index - 1) * 10 + 1, index * 10))
+    }
+
+    const listNews = () => {
+        return (
+            <div>
+                {
+                    data?.map((i) => {
+                        return <NewsItem title={i.title}
+                                         time={i.published_time}
+                                         short={i.content[0]}
+                                         news_id={i._id}/>
+                    })
+                }
+            </div>
+        )
+    }
+
+    const handlePageChange = (page: number) => {
+        refreshData(page)
+    }
+    let index = 1
+
+    useEffect(() => {
+        setData(val.slice((index - 1) * 10 + 1, index * 10))
+    }, [index])
+
     return (
         <Box sx={{width: '100%'}}>
             <AppBar position={'static'} color={'inherit'} sx={{boxShadow: '0px 2px 2px -1px rgba(0,0,0,0.2)'}}>
@@ -374,6 +416,7 @@ export const QueryResult = () => {
                                   time={news.published_time}
                                   short={news.content[0]}
                         news_id={news._id}/>
+                        {listNews()}
                         <Pagination
                             count={10}
                             renderItem={(item) => (
@@ -382,6 +425,9 @@ export const QueryResult = () => {
                                 />
                             )}
                             sx={{width: '60%', margin: 'auto', marginTop: 10}}
+                            onChange={(event, page) => {
+                                handlePageChange(page)
+                            }}
                         />
                     </TabPanel>
                     <TabPanel value={value} index={1}>

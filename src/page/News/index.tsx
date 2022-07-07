@@ -12,7 +12,7 @@ import LoadingPage from "../../components/LoadingPage"
 export type NewsObject = {
     author: string,
     content: string[],
-    id: string,
+    _id: string,
     image_url: string[],
     published_time: string,
     tags: string[],
