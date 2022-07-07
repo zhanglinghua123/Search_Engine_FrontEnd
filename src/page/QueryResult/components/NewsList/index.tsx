@@ -3,7 +3,7 @@ import {NewsObject} from "../../../News";
 import {NewsItem} from "../../../../components/NewsItem";
 import {useEffect, useState} from "react";
 import * as React from "react";
-import {Pagination, PaginationItem} from "_@mui_material@5.8.7@@mui/material";
+import {Pagination, PaginationItem} from "@mui/material";
 import '../index.less'
 
 interface NewsListProps {
