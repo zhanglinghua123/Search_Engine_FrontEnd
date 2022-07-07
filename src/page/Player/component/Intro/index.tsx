@@ -2,15 +2,13 @@ import { ReactNode } from "react"
 import "./index.less"
 type IntroProps = Partial<{
     IntroArray: string[][]
-    TeamIcon: string,
-    CountryIcon: string,
     Name: string,
     En_Name: string,
     ImgDirection: "left" | "right",
     IntroImgUrl: string,
 }>
 export const Intro = (props: IntroProps) => {
-    const { IntroArray, Name, TeamIcon, CountryIcon, En_Name, ImgDirection = "right", IntroImgUrl } = props
+    const { IntroArray, Name, En_Name, ImgDirection = "right", IntroImgUrl } = props
     const Prefix = "Intro"
     return <div className={`${Prefix}-container`}>
         <div style={{
@@ -34,8 +32,6 @@ export const Intro = (props: IntroProps) => {
                 <div className={`${Prefix}-info`}>
                     <div>
                         <span className={`${Prefix}-Name`}>{Name}</span>
-                        {TeamIcon && <img src={TeamIcon}></img>}
-                        {CountryIcon && <img src={CountryIcon}></img>}
                     </div>
                     <div>
                         <span className={`${Prefix}-En-Name`}>{En_Name}</span>

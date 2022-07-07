@@ -77,10 +77,9 @@ export const Player = () => {
             <TypicalHead></TypicalHead>
             <div className={`${PrefixCls}-container`}>
                 <div>
-                    <Intro IntroArray={ConvertDataFromIntro(data)} En_Name="Zhang ling hua" Name="张凌华" ImgDirection="right"
-                        IntroImgUrl="https://sd.qunliao.info/fastdfs5/M00/04/C9/rB8CCl5q_1GAZ-bCAABnrTdScCA444.png"
-                        TeamIcon="https://sd.qunliao.info/fastdfs3/M00/B5/6B/ChOxM1xC0BOAQINeAAALbRfJlAY231.png"
-                        CountryIcon="https://sd.qunliao.info/fastdfs3/M00/B5/75/ChOxM1xC2FiABKB2AADAlIaOOOU133.png"></Intro>
+                    <Intro IntroArray={ConvertDataFromIntro(data)} En_Name={data?.player_english_name || "暂无"} Name={data?.player_name || "暂无"} ImgDirection="right"
+                        IntroImgUrl={data?.player_img_url || ""}
+                    ></Intro>
                     <Table ContainerStyle={{
                         marginTop: "30px",
                         width: "750px"

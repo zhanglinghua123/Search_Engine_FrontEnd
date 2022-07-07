@@ -5,11 +5,17 @@ import "./index.less"
 import { useNavigate } from "react-router-dom";
 const LoadingPage = (props: Partial<{
     children: ReactNode,
+    // 加载界面的LoadingButton
     LoadingButton: React.ReactElement<HTMLElement>;
+    // 是否显示Loading
     Loading: boolean,
+    // 提示文字
     tip: string,
+    // 提示框的类
     tipClassName: string
+    // 字体颜色
     FontColor: string,
+    // 是否显示差错提示框
     showErrorMessage: boolean
 }>) => {
     const { Loading = false, tip, LoadingButton, children, showErrorMessage = false, ...rest } = props
