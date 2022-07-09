@@ -1,8 +1,7 @@
 import axios, { Axios, AxiosRequestConfig } from "axios";
-import { PlayerObject } from "../page/Player";
 const AxiosInstance =  axios.create({
     // 基础的url
-    baseURL:"http://121.196.150.158:8080/",
+    baseURL:"http://121.43.168.78:8080/",
     // 超时配置
     timeout:5000,
     headers:{
@@ -33,31 +32,5 @@ AxiosInstance.interceptors.response.use(response => {
     // loadingInstance.close()
     return Promise.reject(error)
   })
-
-export const SearchAxiosInstance =  axios.create({
-  // 基础的url
-  baseURL:"http://121.43.168.78:8080/",
-  // 超时配置
-  timeout:5000,
-  headers:{
-
-  }
-})
-// 添加请求拦截器
-SearchAxiosInstance.interceptors.request.use(config => {
-  // loadingInstance = Loading.service({
-  //   lock: true,
-  //   text: 'loading...'
-  // })
-  return config
-})
-// 添加响应拦截器
-SearchAxiosInstance.interceptors.response.use(response => {
-  // loadingInstance.close()
-  // console.log(response)
-  return response.data
-}, error => {
-  return Promise.reject(error)
-})
 
 export default AxiosInstance

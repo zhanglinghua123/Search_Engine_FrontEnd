@@ -4,7 +4,7 @@ import anchor from "../../static/svg/anchor.svg"
 import clock from "../../static/svg/clock.svg"
 import "./index.less"
 import classNames from "classnames";
-import AxiosInstance, { SearchAxiosInstance } from "../../util/axios";
+import AxiosInstance from "../../util/axios";
 import { Input } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { TimeoutRetry } from "../../util/TimeOutRetry";
@@ -29,11 +29,13 @@ export type QueryDivProps = Partial<{
     MaxHistory: number
     // 最多几个补全数据
     MaxCompletion: number
+    // InitialValue 初始化QueryDIv的值
+    InitialValue: string
 }>
 export const QueryDiv = (props: QueryDivProps) => {
-    const { ContainerStyle, fontSize = 60, onChange, PlaceHolder, onClick, onClickNote, onEnter, RememberHistory, MaxHistory = 2, MaxCompletion = 6 } = props
+    const { ContainerStyle, fontSize = 60, onChange, InitialValue = "", PlaceHolder, onClick, onClickNote, onEnter, RememberHistory, MaxHistory = 2, MaxCompletion = 6 } = props
     // 用来控制input值的hooks
-    const [InputValue, SetInputValue] = useState<string>("")
+    const [InputValue, SetInputValue] = useState<string>(InitialValue)
     // 通过Ref 来时时刻刻记录当前的值 由于useState 无法获取最新的值
     const InputRef = useRef<string>("")
     //  路由跳转
@@ -88,7 +90,7 @@ export const QueryDiv = (props: QueryDivProps) => {
     const RequestCompletion = function (value: string) {
         if (value === "") return
         if (value === InputRef.current) {
-            TimeoutRetry<[string, string][]>(() => SearchAxiosInstance.request<[string, string][], [string, string][]>({
+            TimeoutRetry<[string, string][]>(() => AxiosInstance.request<[string, string][], [string, string][]>({
                 url: "completion",
                 params: {
                     completionString: InputValue || ""
