@@ -26,8 +26,9 @@ export type ClubItem = {
     email: string                       //邮箱
     address: string                     //地点
     game_data: Object[]                 //游戏数据
+    clickcnt: number | string
     glory_data: Record<string, string[]>                   //荣誉信息
-    [key: string]: string | Object[] | Record<string, string[]>
+    [key: string]: string | Object[] | Record<string, string[]> | number
 }
 export const Club = () => {
     const PrefixCls = "Club"

@@ -42,6 +42,7 @@ export type PlayerObject = Partial<{
     number: string                  //球衣号码
     birthday: string                //生日
     habitual_foot: string           //惯用脚
+    clickcnt: string //点击量计数
     [keys: string]: string | number | Object[] | Object | Record<string, string[]>
 }>
 export const Player = () => {
