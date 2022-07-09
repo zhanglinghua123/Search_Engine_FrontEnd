@@ -4,7 +4,7 @@ const AxiosInstance =  axios.create({
     // 基础的url
     baseURL:"http://121.196.150.158:8080/",
     // 超时配置
-    timeout:3000,
+    timeout:5000,
     headers:{
 
     }

@@ -12,7 +12,7 @@ export const FontPage = () => {
                 marginTop: "10px",
                 verticalAlign: "middle",
                 width: "40vw",
-            }} fontSize={60}></QueryDiv>
+            }} fontSize={60} RememberHistory></QueryDiv>
         </div>
 
     );
