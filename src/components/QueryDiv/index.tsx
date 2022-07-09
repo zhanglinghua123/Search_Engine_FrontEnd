@@ -62,7 +62,7 @@ export const QueryDiv = (props: QueryDivProps) => {
                 console.log("History", sessionStorage.getItem("history"))
                 AddHistoryItem(InputValue)
             }
-            navigate(`/result?search=${InputValue}`)
+            InputValue && navigate(`/result?search=${InputValue}`)
         }
     }
     // 增加历史记录
@@ -138,7 +138,7 @@ export const QueryDiv = (props: QueryDivProps) => {
                         if (RememberHistory) {
                             AddHistoryItem(val.value)
                         }
-                        navigate(`/result?search=${InputValue}`)
+                        InputValue && navigate(`/result?search=${InputValue}`)
                     }}>
                         <img src={val.type === "completion" ? search : clock} alt="" style={{
                             height: "0.3em",
