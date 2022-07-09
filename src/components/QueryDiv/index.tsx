@@ -1,10 +1,13 @@
-import { ChangeEvent, CSSProperties, useEffect, useState } from "react";
+import { ChangeEvent, CSSProperties, useEffect, useRef, useState } from "react";
 import search from "../../static/svg/search.svg"
 import anchor from "../../static/svg/anchor.svg"
 import clock from "../../static/svg/clock.svg"
 import "./index.less"
 import classNames from "classnames";
-import AxiosInstance from "../../util/axios";
+import AxiosInstance, { SearchAxiosInstance } from "../../util/axios";
+import { Input } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { TimeoutRetry } from "../../util/TimeOutRetry";
 export type QueryDivProps = Partial<{
     // 最外层的Div样式
     ContainerStyle: CSSProperties,
@@ -31,13 +34,16 @@ export const QueryDiv = (props: QueryDivProps) => {
     const { ContainerStyle, fontSize = 60, onChange, PlaceHolder, onClick, onClickNote, onEnter, RememberHistory, MaxHistory = 2, MaxCompletion = 6 } = props
     // 用来控制input值的hooks
     const [InputValue, SetInputValue] = useState<string>("")
+    // 通过Ref 来时时刻刻记录当前的值 由于useState 无法获取最新的值
+    const InputRef = useRef<string>("")
+    //  路由跳转
+    const navigate = useNavigate()
     // 展示的补全数组
     const [CompleteContent, SetCompleteContent] = useState<{ type: string, value: string }[]>([])
-    // 控制请求的频率
-    const [Request, SetRequest] = useState<boolean>(true)
     // input值改变的时候的回调函数
     const onInputChange = (e: ChangeEvent) => {
         SetInputValue((e.target! as any).value)
+        InputRef.current = (e.target! as any).value
         onChange?.(e)
     }
     // 当叉号点击的时候的回调函数
@@ -45,6 +51,7 @@ export const QueryDiv = (props: QueryDivProps) => {
         SetInputValue("")
         onClick?.(e)
     }
+
     // 当Input点击回车的回调函数 代表进行查询
     const onInputEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.code === "Enter") {
@@ -53,7 +60,7 @@ export const QueryDiv = (props: QueryDivProps) => {
                 console.log("History", sessionStorage.getItem("history"))
                 AddHistoryItem(InputValue)
             }
-
+            navigate(`/result?search=${InputValue}`)
         }
     }
     // 增加历史记录
@@ -78,14 +85,15 @@ export const QueryDiv = (props: QueryDivProps) => {
             })
         return result
     }
-    // 当input值 发生变化的时候 更新Content 并且限制请求的频率
-    useEffect(() => {
-        if (Request) {
-            AxiosInstance.request<[string, string][], [string, string][]>({
-                url: "completion", params: {
-                    completionString: InputValue
+    const RequestCompletion = function (value: string) {
+        if (value === "") return
+        if (value === InputRef.current) {
+            TimeoutRetry<[string, string][]>(() => SearchAxiosInstance.request<[string, string][], [string, string][]>({
+                url: "completion",
+                params: {
+                    completionString: InputValue || ""
                 }
-            }).then(val => {
+            }), 5).then(val => {
                 const result = val.map(item => {
                     return {
                         name: item[0],
@@ -96,10 +104,14 @@ export const QueryDiv = (props: QueryDivProps) => {
                 })
                 SetCompleteContent(result || [])
             })
-            console.log("reqeust -----", Request)
-            SetRequest(false)
-            setTimeout(() => { SetRequest(true) }, 3000)
+
         }
+    }
+    // 当input值 发生变化的时候 更新Content 并且限制请求的频率 当输入的值 一秒内不变化的时候 进行请求
+    useEffect(() => {
+        setTimeout(() => {
+            RequestCompletion(InputValue)
+        }, 1000)
     }, [InputValue])
     const prefixCls = "component";
     return <div className={`${prefixCls}-icon`} style={{ fontSize: `${fontSize}px`, ...ContainerStyle }}>
@@ -117,13 +129,14 @@ export const QueryDiv = (props: QueryDivProps) => {
             </div>
             <ul className={`${prefixCls}-list`}>
 
-                {InputValue && [...CompleteContent.slice(0, MaxCompletion), ...PrefixInputValue().slice(0, MaxHistory)].map(val => {
+                {InputValue && [...PrefixInputValue().slice(0, MaxHistory), ...CompleteContent.slice(0, MaxCompletion)].map(val => {
                     return <li onClick={(e?: React.MouseEvent<HTMLLIElement>) => {
                         SetInputValue(val.value)
                         onClickNote?.(e)
                         if (RememberHistory) {
                             AddHistoryItem(val.value)
                         }
+                        navigate(`/result?search=${InputValue}`)
                     }}>
                         <img src={val.type === "completion" ? search : clock} alt="" style={{
                             height: "0.3em",
