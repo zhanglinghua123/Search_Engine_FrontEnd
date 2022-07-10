@@ -73,11 +73,16 @@ export const QueryResult = () => {
 
     const [playerItems, setPlayerItems] = useState<PlayerObject[]>([])
 
+    const [clubItems, setClubItems] = useState<ClubItem[]>([])
+
+
     const sortChange = (event: SelectChangeEvent) => {
+        console.log(event.target.value)
         setSort(event.target.value);
         if(event.target.value == '1'){
             setNewsItems(result.news)
-            setPlayerItems(result.player)
+            setPlayerItems(filterPlayer(result.player))
+            setClubItems(filterClub(result.club))
         }
         else{
             newsItems.sort((a, b) => {
@@ -90,10 +95,19 @@ export const QueryResult = () => {
                         return 0;
                 }
             })
+            console.log(newsItems)
             playerItems.sort((a, b) => {
                 switch (event.target.value) {
                     case '3':
                         return a.click_cnt && b.click_cnt ? a.click_cnt - b.click_cnt : 0
+                    default:
+                        return 0;
+                }
+            })
+            clubItems.sort((a, b) => {
+                switch (event.target.value) {
+                    case '3':
+                        return a.click_cnt - b.click_cnt
                     default:
                         return 0;
                 }
@@ -109,8 +123,9 @@ export const QueryResult = () => {
     const navigate = useNavigate()
 
     const showRecommend = () => {
+        let num = result.recommend.length > 5 ? result.recommend.length / 5 : 1;
         return (
-            <Stack direction={"row"} spacing={2} sx={{marginTop: 2}}>
+            <Stack direction={"row"} spacing={2} sx={{marginTop: 2, maxWidth: '80px'}}>
                 {
                     result.recommend.map(i => {
                         return <Avatar sx={{width: 50, height: 50}} src={i[3]} onClick={() => {
@@ -123,12 +138,37 @@ export const QueryResult = () => {
         )
     }
 
+    const filterPlayer = (data: PlayerObject[]) => {
+        const obj: {[key: string]: boolean;} = {};
+        data = data.reduce<PlayerObject[]>((item, next) => {
+            if (!obj[next.player_img_url as string]) {
+                item.push(next);
+                obj[next.player_img_url as string] = true;
+            }
+            return item;
+        },[]);
+        return data;
+    }
+
+    const filterClub = (data: ClubItem[]) => {
+        const obj: {[key: string]: boolean;} = {};
+        data = data.reduce<ClubItem[]>((item, next) => {
+            if (!obj[next.club_img_url as string]) {
+                item.push(next);
+                obj[next.club_img_url as string] = true;
+            }
+            return item;
+        },[]);
+        return data;
+    }
+
     const searchResult = async () => {
         const data = await AxiosInstance.request<Result, Result>({url: `/search?searchString=${search}`}).then( val => {
             if(val){
                 setResult(val)
                 setNewsItems(val.news)
-                setPlayerItems(val.player)
+                setPlayerItems(filterPlayer(val.player))
+                setClubItems(filterClub(val.club))
                 console.log(val)
             }
             else{
@@ -142,7 +182,6 @@ export const QueryResult = () => {
     useEffect(() => {
         searchResult()
     }, [search])
-
 
     return (
         <Box sx={{width: '100%'}}>
@@ -171,10 +210,10 @@ export const QueryResult = () => {
                             </Select>
                         </FormControl>
                     </Box>
-                    <AllItems index={0} value={value} personList={playerItems} clubList={result.club} newsList={newsItems} />
-                    <PersonList index={1} value={value} list={playerItems} />
-                    <ClubList index={2} value={value} list={result.club} />
-                    <NewsList index={3} value={value} list={newsItems}/>
+                    <AllItems index={0} value={value} personList={playerItems} clubList={clubItems} newsList={newsItems.slice(0, newsItems.length)} />
+                    <PersonList index={1} value={value} list={playerItems.slice(0, playerItems.length)} />
+                    <ClubList index={2} value={value} list={clubItems.slice(0, clubItems.length)} />
+                    <NewsList index={3} value={value} list={newsItems.slice(0, newsItems.length)}/>
                 </div>
                 <div className={'queryresult-related'}>
                     <div style={{marginTop: 80, marginLeft: 20}}>

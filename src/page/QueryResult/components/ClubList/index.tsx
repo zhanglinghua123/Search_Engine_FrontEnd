@@ -26,7 +26,7 @@ export function ClubList(props: ClubListProps){
             setData(val)
         }
         else{
-            setData(val.slice((index - 1) * 10 + 1, index * 10))
+            setData(val.slice((index - 1) * 10, index * 10))
         }
     }
 
@@ -58,7 +58,7 @@ export function ClubList(props: ClubListProps){
         <TabPanel index={index} value={value}>
             {listClubs()}
             <Pagination
-                count={val.length < 10 ? 1 : val.length / 10}
+                count={val.length < 10 ? 1 : Math.ceil(val.length / 10)}
                 renderItem={(item) => (
                     <PaginationItem
                         {...item}

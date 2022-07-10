@@ -27,7 +27,7 @@ export type ClubItem = {
     email: string                       //邮箱
     address: string                     //地点
     game_data: Object[]                 //游戏数据
-    click_cnt: number | string
+    click_cnt: number
     glory_data: Record<string, string[]>                   //荣誉信息
     [key: string]: string | Object[] | Record<string, string[]> | number
 }

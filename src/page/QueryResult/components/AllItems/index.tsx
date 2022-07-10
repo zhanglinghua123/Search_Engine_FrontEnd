@@ -24,20 +24,18 @@ export function AllItems(props: AllItemsProps) {
 
     const val: NewsObject[] = newsList
 
+    const [page, setPage] = useState(1)
+
     const refreshData = (index: number) => {
-        setData(val.slice((index - 1) * 10 + 1, index * 10))
+        setPage(index)
+        setData(val.slice((index - 1) * 10, index * 10))
     }
-
-
-    let page = 1
-
-
 
     const listPlayers = () => {
         return (
             <div>
                 {
-                    personList.map((i) => {
+                    personList.slice(0, 4).map((i) => {
                         return <PersonInfo name={i.player_name as string} weight={i.weight as string} height={i.height as string}
                                            age={i.age as string} imgUrl={i.player_img_url as string} location={i.location as string}
                                            country={i.country as string} birthDate={i.birthday as string} nameEng={i.player_english_name as string}
@@ -52,7 +50,7 @@ export function AllItems(props: AllItemsProps) {
         return(
             <div>
                 {
-                    clubList.map((i) => {
+                    clubList.slice(0, 4).map((i) => {
                         return <ClubInfo club_name={i.club_name as string} club_english_name={i.club_english_name as string}
                                          country={i.country as string} city={i.city as string} club_img_url={i.club_img_url as string}
                                          start_time={i.start_time as string} home_court={i.home_court as string}  club_id={i._id1 as string}/>
@@ -98,14 +96,14 @@ export function AllItems(props: AllItemsProps) {
     }
 
     useEffect(() => {
-        setData(val.slice((page - 1) * 10 + 1, page * 10))
+        setData(val.slice((page - 1) * 10, page * 10))
     }, [page, val])
 
     return (
         <TabPanel index={index} value={value}>
             {listItems()}
             <Pagination
-                count={val.length < 10 ? 1 : val.length / 10}
+                count={val.length < 10 ? 1 : Math.ceil(val.length / 10)}
                 renderItem={(item) => (
                     <PaginationItem
                         {...item}
