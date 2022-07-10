@@ -42,5 +42,6 @@ export const ClubInfo = (props: ClubInfoProps) => {
                 </CardContent>
             </CardActionArea>
         </Card>
+
     )
 }

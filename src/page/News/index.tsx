@@ -8,8 +8,10 @@ import AxiosInstance from "../../util/axios";
 import {TypicalHead} from "../../components/Head/typical";
 import {Diamond} from "../../components/Spin";
 import LoadingPage from "../../components/LoadingPage"
+import ReactPlayer from "react-player";
 
 export type NewsObject = {
+    "@timestamp": string,
     author: string,
     content: string[],
     _id1: string,
@@ -18,7 +20,7 @@ export type NewsObject = {
     tags: string[],
     title: string,
     video_url: string[],
-    click_cnt: string | number,
+    click_cnt: number,
 }
 
 export const News = () => {
@@ -68,7 +70,15 @@ export const News = () => {
     const image = () => {
         return (
             data?.image_url.map((i) => {
-                return <img style={{ marginTop: 20 }} src={i} />
+                return <img style={{ marginTop: '20px', marginLeft: 'auto' }} src={i} />
+            })
+        )
+    }
+
+    const video = () => {
+        return (
+            data?.video_url.map((i) => {
+                return <ReactPlayer controls url={i} style={{margin: '20px auto'}} />
             })
         )
     }
@@ -98,6 +108,7 @@ export const News = () => {
                     <div className={'news-content'}>
                         {content()}
                         {image()}
+                        {video()}
                     </div>
                 </div>
 
