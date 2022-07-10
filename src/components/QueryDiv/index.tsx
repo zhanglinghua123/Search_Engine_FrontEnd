@@ -94,7 +94,7 @@ export const QueryDiv = (props: QueryDivProps) => {
             TimeoutRetry<string[]>(() => AxiosInstance.request<string[], string[]>({
                 url: "completion",
                 params: {
-                    completionString: InputValue || ""
+                    completionString: FormatKeyWord(InputValue) || ""
                 }
             }), 5).then(val => {
                 const result = val.map(item => {
@@ -110,8 +110,23 @@ export const QueryDiv = (props: QueryDivProps) => {
 
         }
     }
+    // 获取当前的用户正在输入的字符串中，最后一个关键词
+    const FormatKeyWord = (str: string): string => {
+        const IndexOfand = str.lastIndexOf("&")
+        const IndexofOr = str.lastIndexOf("|")
+        if (IndexOfand > IndexofOr) return str.substring(IndexOfand + 1).trim()
+        if (IndexOfand < IndexofOr) return str.substring(IndexofOr + 1).trim()
+        return str.trim()
+    }
+    // 替换当前的Keyword
+    const ReplaceKeyWord = (oldstr: string, value: string) => {
+        const IndexofKeyword = oldstr.indexOf(FormatKeyWord(oldstr))
+        const OldComple = oldstr.substring(0, IndexofKeyword)
+        return OldComple + value
+    }
     // 当input值 发生变化的时候 更新Content 并且限制请求的频率 当输入的值 一秒内不变化的时候 进行请求
     useEffect(() => {
+        console.log(InputValue, FormatKeyWord(InputValue), "value -- ")
         setTimeout(() => {
             RequestCompletion(InputValue)
         }, 1000)
@@ -134,12 +149,8 @@ export const QueryDiv = (props: QueryDivProps) => {
 
                 {InputValue && [...PrefixInputValue().slice(0, MaxHistory), ...CompleteContent.slice(0, MaxCompletion)].map(val => {
                     return <li onClick={(e?: React.MouseEvent<HTMLLIElement>) => {
-                        SetInputValue(val.value)
+                        SetInputValue(ReplaceKeyWord(InputValue, val.value))
                         onClickNote?.(e)
-                        if (RememberHistory) {
-                            AddHistoryItem(val.value)
-                        }
-                        navigate(`/result?search=${val.value}`)
                     }}>
                         <img src={val.type === "completion" ? search : clock} alt="" style={{
                             height: "0.3em",
