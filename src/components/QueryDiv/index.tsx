@@ -91,7 +91,7 @@ export const QueryDiv = (props: QueryDivProps) => {
     const RequestCompletion = function (value: string) {
         if (value === "") return
         if (value === InputRef.current) {
-            TimeoutRetry<[string, string][]>(() => AxiosInstance.request<[string, string][], [string, string][]>({
+            TimeoutRetry<string[]>(() => AxiosInstance.request<string[], string[]>({
                 url: "completion",
                 params: {
                     completionString: InputValue || ""
@@ -99,12 +99,12 @@ export const QueryDiv = (props: QueryDivProps) => {
             }), 5).then(val => {
                 const result = val.map(item => {
                     return {
-                        name: item[0],
-                        value: parseInt(item[1])
+                        value: item
                     }
-                }).sort((a, b) => { return a.value - b.value }).map(val => {
-                    return { type: "completion", value: val.name }
+                }).sort((a, b) => { return a.value.length - b.value.length }).map(val => {
+                    return { type: "completion", value: val.value }
                 })
+                console.log(result, "result ---")
                 SetCompleteContent(result || [])
             })
 
@@ -139,7 +139,7 @@ export const QueryDiv = (props: QueryDivProps) => {
                         if (RememberHistory) {
                             AddHistoryItem(val.value)
                         }
-                        navigate(`/result?search=${InputValue}`)
+                        navigate(`/result?search=${val.value}`)
                     }}>
                         <img src={val.type === "completion" ? search : clock} alt="" style={{
                             height: "0.3em",
