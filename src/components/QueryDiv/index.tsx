@@ -62,7 +62,7 @@ export const QueryDiv = (props: QueryDivProps) => {
                 console.log("History", sessionStorage.getItem("history"))
                 AddHistoryItem(InputValue)
             }
-            navigate(`/result?search=${InputValue}`)
+            InputValue && navigate(`/result?search=${InputValue}`)
             window.location.reload()
         }
     }
