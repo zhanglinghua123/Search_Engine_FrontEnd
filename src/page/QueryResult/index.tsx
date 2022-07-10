@@ -71,10 +71,13 @@ export const QueryResult = () => {
 
     const [newsItems, setNewsItems] = useState<NewsObject[]>([])
 
+    const [playerItems, setPlayerItems] = useState<PlayerObject[]>([])
+
     const sortChange = (event: SelectChangeEvent) => {
         setSort(event.target.value);
         if(event.target.value == '1'){
             setNewsItems(result.news)
+            setPlayerItems(result.player)
         }
         else{
             newsItems.sort((a, b) => {
@@ -83,6 +86,14 @@ export const QueryResult = () => {
                         return b.published_time.localeCompare(a.published_time);
                     case '3':
                         return a.click_cnt - b.click_cnt
+                    default:
+                        return 0;
+                }
+            })
+            playerItems.sort((a, b) => {
+                switch (event.target.value) {
+                    case '3':
+                        return a.click_cnt && b.click_cnt ? a.click_cnt - b.click_cnt : 0
                     default:
                         return 0;
                 }
@@ -117,6 +128,7 @@ export const QueryResult = () => {
             if(val){
                 setResult(val)
                 setNewsItems(val.news)
+                setPlayerItems(val.player)
                 console.log(val)
             }
             else{
@@ -159,8 +171,8 @@ export const QueryResult = () => {
                             </Select>
                         </FormControl>
                     </Box>
-                    <AllItems index={0} value={value} personList={result.player} clubList={result.club} newsList={newsItems} />
-                    <PersonList index={1} value={value} list={result.player} />
+                    <AllItems index={0} value={value} personList={playerItems} clubList={result.club} newsList={newsItems} />
+                    <PersonList index={1} value={value} list={playerItems} />
                     <ClubList index={2} value={value} list={result.club} />
                     <NewsList index={3} value={value} list={newsItems}/>
                 </div>
