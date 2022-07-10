@@ -6,7 +6,7 @@ import {PersonInfo} from "../../../../components/PersonInfo";
 import * as React from "react";
 import {ClubInfo} from "../../../../components/ClubInfo";
 import {TabPanel} from "../TabPanel";
-import {Pagination, PaginationItem} from "_@mui_material@5.8.7@@mui/material";
+import {Pagination, PaginationItem} from "@mui/material";
 import {NewsItem} from "../../../../components/NewsItem";
 
 interface AllItemsProps {
@@ -27,6 +27,7 @@ export function AllItems(props: AllItemsProps) {
     const refreshData = (index: number) => {
         setData(val.slice((index - 1) * 10 + 1, index * 10))
     }
+
 
     let page = 1
 

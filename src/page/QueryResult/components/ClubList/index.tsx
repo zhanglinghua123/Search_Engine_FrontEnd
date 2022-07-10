@@ -3,7 +3,7 @@ import {ClubItem} from "../../../Club";
 import {NewsObject} from "../../../News";
 import {useEffect, useState} from "react";
 import {NewsItem} from "../../../../components/NewsItem";
-import {Pagination, PaginationItem} from "_@mui_material@5.8.7@@mui/material";
+import {Pagination, PaginationItem} from "@mui/material";
 import * as React from "react";
 import {ClubInfo} from "../../../../components/ClubInfo";
 
