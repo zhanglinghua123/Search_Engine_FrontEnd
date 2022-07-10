@@ -6,7 +6,7 @@ import { QueryResult } from './page/QueryResult';
 import { Player } from './page/Player';
 import { News } from './page/News';
 import { Club } from './page/Club';
-
+// import { InitLive2d } from './util/loadlive2d';
 function App() {
     let modelname = 'tororo';
     const InitLive2d = () => {
@@ -39,9 +39,9 @@ function App() {
         let Timer = setInterval(() => {
             if ((window as any).L2Dwidget) {
                 InitLive2d()
-                console.log("Init 完成")
                 clearInterval(Timer)
             }
+            console.log("进行尝试")
         }, 1000)
     }, [])
     return (

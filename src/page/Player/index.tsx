@@ -13,6 +13,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import AxiosInstance from "../../util/axios"
 import { ConvertDataFromAbility, ConvertDataFromAbilityColumn, ConvertDataFromGame, ConvertDataFromGlory, ConvertDataFromIntro, ConvertDataFromTransfer } from "./ConvertData_Player"
 import { TimeoutRetry } from "../../util/TimeOutRetry"
+import { InitLive2d } from "../../util/loadlive2d"
 // 页面的数据类型
 export type PlayerObject = Partial<{
     ability: {
@@ -47,6 +48,15 @@ export type PlayerObject = Partial<{
     [keys: string]: string | number | Object[] | Object | Record<string, string[]>
 }>
 export const Player = () => {
+    useEffect(() => {
+        let Timer = setInterval(() => {
+            console.log("----进行尝试")
+            if ((window as any).L2Dwidget) {
+                InitLive2d()
+                clearInterval(Timer)
+            }
+        }, 1000)
+    }, [])
     const [Loading, SetLoading] = useState<boolean>(true);
     // 运动员数据
     const [data, setData] = useState<PlayerObject | undefined>(undefined);
