@@ -41,7 +41,7 @@ export function AllItems(props: AllItemsProps) {
                         return <PersonInfo name={i.player_name as string} weight={i.weight as string} height={i.height as string}
                                            age={i.age as string} imgUrl={i.player_img_url as string} location={i.location as string}
                                            country={i.country as string} birthDate={i.birthday as string} nameEng={i.player_english_name as string}
-                                           person_id={i.id as string}/>
+                                           person_id={i._id1 as string}/>
                     })
                 }
             </div>

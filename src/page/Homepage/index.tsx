@@ -1,6 +1,6 @@
 import { QueryDiv } from "../../components/QueryDiv";
 import "./style/index.less"
-import logo from "../../static/logo.png"
+import logo from "../../static/logo_light.png"
 export const FontPage = () => {
     const prefixCls = 'fontpage';
     return (
