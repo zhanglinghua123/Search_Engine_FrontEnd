@@ -12,6 +12,8 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import AxiosInstance from "../../util/axios"
 import { ConvertDataFromAbility, ConvertDataFromAbilityColumn, ConvertDataFromGame, ConvertDataFromGlory, ConvertDataFromIntro, ConvertDataFromTransfer } from "./ConvertData_Player"
+import { TimeoutRetry } from "../../util/TimeOutRetry"
+import { InitLive2d } from "../../util/loadlive2d"
 // 页面的数据类型
 export type PlayerObject = Partial<{
     ability: {
@@ -46,6 +48,15 @@ export type PlayerObject = Partial<{
     [keys: string]: string | number | Object[] | Object | Record<string, string[]>
 }>
 export const Player = () => {
+    useEffect(() => {
+        let Timer = setInterval(() => {
+            console.log("----进行尝试")
+            if ((window as any).L2Dwidget) {
+                InitLive2d()
+                clearInterval(Timer)
+            }
+        }, 1000)
+    }, [])
     const [Loading, SetLoading] = useState<boolean>(true);
     // 运动员数据
     const [data, setData] = useState<PlayerObject | undefined>(undefined);
@@ -53,8 +64,8 @@ export const Player = () => {
     const [error, Seterror] = useState<boolean>(false);
     const url = useParams()
     // 获取对应的运动员数据
-    const GetPlayerObject = async () => {
-        const data = await AxiosInstance.request<PlayerObject, PlayerObject>({ url: `/player/${url.id}` }).then((val) => {
+    const GetPlayerObject = () =>
+        AxiosInstance.request<PlayerObject, PlayerObject>({ url: `/player/${url.id}` }).then((val) => {
             if (val) {
                 // 设置延时 让loading界面加载
                 setTimeout(() => SetLoading(false), 1000)
@@ -63,13 +74,13 @@ export const Player = () => {
                 // 数据没有的时候 报错
                 return Promise.reject()
             }
-        }).catch((err) => {
-            Seterror(true)
-        });
-    }
+        })
+
     // 进行网络请求
     useEffect(() => {
-        GetPlayerObject()
+        TimeoutRetry(() => GetPlayerObject(), 5).catch((err) => {
+            Seterror(true)
+        });
     }, [])
     const PrefixCls = "Player"
     return (

@@ -12,6 +12,7 @@ import AxiosInstance from "../../util/axios"
 import { useParams } from "react-router-dom"
 import price from "../../static/svg/price.svg"
 import { SpecialSpanStylesClubIntro } from "./constant"
+import { TimeoutRetry } from "../../util/TimeOutRetry"
 export type ClubItem = {
     _id1: string                          //俱乐部ID
     club_name: string                   //俱乐部名字
@@ -41,24 +42,23 @@ export const Club = () => {
     const url = useParams()
 
     // 获取对应的运动员数据
-    const GetClubItem = async () => {
-        const data = await AxiosInstance.request<ClubItem, ClubItem>({ url: `/club/${url.id}` }).then((val) => {
+    const GetClubItem = () =>
+        AxiosInstance.request<ClubItem, ClubItem>({ url: `/club/${url.id}` }).then((val) => {
             if (val) {
                 // 设置延时 让loading界面加载
                 setTimeout(() => SetLoading(false), 1000)
                 setData(val)
-                console.log(val, "val----", ConvertClubDataFromGlory(val))
             } else {
                 // 数据没有的时候 报错
                 return Promise.reject()
             }
-        }).catch((err) => {
-            Seterror(true)
-        });
-    }
+        })
+
     // 进行网络请求
     useEffect(() => {
-        GetClubItem()
+        TimeoutRetry(() => GetClubItem(), 5).catch((err) => {
+            Seterror(true)
+        });
     }, [])
     return (
         <LoadingPage showErrorMessage={error} Loading={Loading} tip="少女祈祷中..." FontColor="#666" tipClassName="loadingpage-diamond-tip" LoadingButton={<Diamond Color="#73DDAB" size="large"></Diamond>}>
