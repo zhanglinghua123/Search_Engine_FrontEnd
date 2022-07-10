@@ -1,4 +1,5 @@
 import axios, { Axios, AxiosRequestConfig } from "axios";
+import { PlayerObject } from "../page/Player";
 const AxiosInstance =  axios.create({
     // 基础的url
     baseURL:"http://121.43.168.78:8080/",

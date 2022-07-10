@@ -29,7 +29,7 @@ export type PlayerObject = Partial<{
     glory_data: Record<string, string[]>
     transfer_data: Object[]
     game_data: Object[]
-    id: string                      //球员id
+    _id1: string                      //球员id
     player_name: string             //球员姓名
     player_english_name: string     //球员英文名
     player_img_url: string          //球员图片url
@@ -42,7 +42,7 @@ export type PlayerObject = Partial<{
     number: string                  //球衣号码
     birthday: string                //生日
     habitual_foot: string           //惯用脚
-    clickcnt: string //点击量计数
+    click_cnt: string //点击量计数
     [keys: string]: string | number | Object[] | Object | Record<string, string[]>
 }>
 export const Player = () => {

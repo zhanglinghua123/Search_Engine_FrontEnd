@@ -6,6 +6,7 @@ import m from '../../static/m.jpg'
 
 interface PersonInfoProps {
     children?:React.ReactNode;
+    person_id: string;
     imgUrl: string;
     name: String;
     nameEng: String;
@@ -18,9 +19,11 @@ interface PersonInfoProps {
 }
 
 export const PersonInfo = (props: PersonInfoProps) =>{
-    const {children, imgUrl, name, nameEng, country, birthDate, location, age, weight, height, ...other} = props;
+    const {person_id, children, imgUrl, name, nameEng, country, birthDate, location, age, weight, height, ...other} = props;
     return (
-        <Card sx={{marginTop: '10px'}}>
+        <Card sx={{marginTop: '10px'}} onClick={() => {
+            window.open(`player/${person_id}`)
+        }}>
             <CardActionArea>
                 <CardContent sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <div className={'person-avatar'}>

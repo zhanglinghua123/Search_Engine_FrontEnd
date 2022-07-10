@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom"
 import price from "../../static/svg/price.svg"
 import { SpecialSpanStylesClubIntro } from "./constant"
 export type ClubItem = {
-    id: string                          //俱乐部ID
+    _id1: string                          //俱乐部ID
     club_name: string                   //俱乐部名字
     club_english_name: string           //俱乐部英文名
     club_img_url: string                //俱乐部图片url
@@ -26,7 +26,7 @@ export type ClubItem = {
     email: string                       //邮箱
     address: string                     //地点
     game_data: Object[]                 //游戏数据
-    clickcnt: number | string
+    click_cnt: number | string
     glory_data: Record<string, string[]>                   //荣誉信息
     [key: string]: string | Object[] | Record<string, string[]> | number
 }

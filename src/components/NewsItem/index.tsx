@@ -15,10 +15,12 @@ interface NewsItemProps {
 export const NewsItem = (props: NewsItemProps) =>{
     const {children, title, time, word, short, news_id, ...other} = props
     return (
-        <Card sx={{marginTop: '10px'}}>
+        <Card sx={{marginTop: '10px'}} onClick={() => {
+            window.open(`news/${news_id}`)
+        }}>
             <CardActionArea>
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" sx={{color: '#234a9b'}}>
+                    <Typography gutterBottom variant="h5" component="div" sx={{color: '#1749a2'}}>
                         {title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary"

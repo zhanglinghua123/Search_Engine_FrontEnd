@@ -12,12 +12,13 @@ import LoadingPage from "../../components/LoadingPage"
 export type NewsObject = {
     author: string,
     content: string[],
-    _id: string,
+    _id1: string,
     image_url: string[],
     published_time: string,
     tags: string[],
     title: string,
-    video_url: string[]
+    video_url: string[],
+    click_cnt: string | number,
 }
 
 export const News = () => {
@@ -43,7 +44,7 @@ export const News = () => {
 
     useEffect(() => {
         GetNewsObject();
-    })
+    }, [])
 
     const tag = () => {
         return <Stack direction="row" spacing={1}>

@@ -63,6 +63,7 @@ export const QueryDiv = (props: QueryDivProps) => {
                 AddHistoryItem(InputValue)
             }
             navigate(`/result?search=${InputValue}`)
+            window.location.reload()
         }
     }
     // 增加历史记录

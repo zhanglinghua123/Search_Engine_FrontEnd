@@ -10,13 +10,16 @@ interface ClubInfoProps {
     club_img_url: string;
     start_time: string;
     home_court: string;
+    club_id: string
 }
 
 export const ClubInfo = (props: ClubInfoProps) => {
-    const {club_name, club_english_name, country, city, club_img_url, start_time, home_court, ...other} = props;
+    const {club_name, club_english_name, country, city, club_img_url, start_time, home_court, club_id, ...other} = props;
 
     return (
-        <Card sx={{marginTop: '10px'}}>
+        <Card sx={{marginTop: '10px'}} onClick={() => {
+            window.open(`club/${club_id}`)
+        }}>
             <CardActionArea>
                 <CardContent sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <div className={'person-avatar'}>
