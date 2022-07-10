@@ -69,19 +69,26 @@ export const QueryResult = () => {
 
     const [result, setResult] = useState<Result>({news: [], player: [], club: [], recommend: []})
 
+    const [newsItems, setNewsItems] = useState<NewsObject[]>([])
+
     const sortChange = (event: SelectChangeEvent) => {
         setSort(event.target.value);
-        console.log(sort)
-        result.news.sort((a, b) => {
-            switch (sort) {
-                case '1':
-                    return b.published_time.localeCompare(a.published_time);
-                case '2':
-                    return a.click_cnt - b.click_cnt
-                default:
-                    return 0;
-            }
-        })
+        if(event.target.value == '1'){
+            setNewsItems(result.news)
+        }
+        else{
+            newsItems.sort((a, b) => {
+                switch (event.target.value) {
+                    case '2':
+                        return b.published_time.localeCompare(a.published_time);
+                    case '3':
+                        return a.click_cnt - b.click_cnt
+                    default:
+                        return 0;
+                }
+            })
+        }
+
     };
 
     const search = window.location.search.split("=")[1];
@@ -109,6 +116,7 @@ export const QueryResult = () => {
         const data = await AxiosInstance.request<Result, Result>({url: `/search?searchString=${search}`}).then( val => {
             if(val){
                 setResult(val)
+                setNewsItems(val.news)
                 console.log(val)
             }
             else{
@@ -151,10 +159,10 @@ export const QueryResult = () => {
                             </Select>
                         </FormControl>
                     </Box>
-                    <AllItems index={0} value={value} personList={result.player} clubList={result.club} newsList={result.news} />
+                    <AllItems index={0} value={value} personList={result.player} clubList={result.club} newsList={newsItems} />
                     <PersonList index={1} value={value} list={result.player} />
                     <ClubList index={2} value={value} list={result.club} />
-                    <NewsList index={3} value={value} list={result.news}/>
+                    <NewsList index={3} value={value} list={newsItems}/>
                 </div>
                 <div className={'queryresult-related'}>
                     <div style={{marginTop: 80, marginLeft: 20}}>
