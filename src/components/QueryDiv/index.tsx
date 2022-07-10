@@ -87,6 +87,14 @@ export const QueryDiv = (props: QueryDivProps) => {
             })
         return result
     }
+    // 获取当前的用户正在输入的字符串中，最后一个关键词
+    const FormatKeyWord = (str: string): string => {
+        const IndexOfand = str.lastIndexOf("&")
+        const IndexofOr = str.lastIndexOf("|")
+        if (IndexOfand > IndexofOr) return str.substring(IndexOfand + 1).trim()
+        if (IndexOfand < IndexofOr) return str.substring(IndexofOr + 1).trim()
+        return str.trim()
+    }
     const RequestCompletion = function (value: string) {
         if (value === "") return
         if (value === InputRef.current) {
@@ -95,7 +103,7 @@ export const QueryDiv = (props: QueryDivProps) => {
                 params: {
                     completionString: InputValue || ""
                 }
-            }), 5).then(val => {
+            }), 2).then(val => {
                 const result = val.map(item => {
                     return {
                         name: item[0],
@@ -112,7 +120,7 @@ export const QueryDiv = (props: QueryDivProps) => {
     // 当input值 发生变化的时候 更新Content 并且限制请求的频率 当输入的值 一秒内不变化的时候 进行请求
     useEffect(() => {
         setTimeout(() => {
-            RequestCompletion(InputValue)
+            RequestCompletion(FormatKeyWord(InputValue))
         }, 1000)
     }, [InputValue])
     const prefixCls = "component";
