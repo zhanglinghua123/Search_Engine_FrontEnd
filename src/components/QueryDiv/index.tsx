@@ -62,7 +62,7 @@ export const QueryDiv = (props: QueryDivProps) => {
                 console.log("History", sessionStorage.getItem("history"))
                 AddHistoryItem(InputValue)
             }
-            InputValue && navigate(`/result?search=${ForMatInputValue(InputValue)}`)
+            InputValue && navigate(`/result?search=${ReplaceAllKeyword(InputValue)}`)
             window.location.reload()
         }
     }
@@ -133,7 +133,7 @@ export const QueryDiv = (props: QueryDivProps) => {
         const OldComple = oldstr.substring(0, IndexofKeyword)
         return OldComple + value
     }
-    const ForMatInputValue = (str: string) => {
+    const ReplaceAllKeyword = (str: string) => {
         return str.replaceAll(/ *and */g, " and ").replaceAll(/ *or */g, " or ")
     }
     // 当input值 发生变化的时候 更新Content 并且限制请求的频率 当输入的值 一秒内不变化的时候 进行请求
