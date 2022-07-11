@@ -62,7 +62,7 @@ export const QueryDiv = (props: QueryDivProps) => {
                 console.log("History", sessionStorage.getItem("history"))
                 AddHistoryItem(InputValue)
             }
-            InputValue && navigate(`/result?search=${InputValue}`)
+            InputValue && navigate(`/result?search=${ForMatInputValue(InputValue)}`)
             window.location.reload()
         }
     }
@@ -112,17 +112,20 @@ export const QueryDiv = (props: QueryDivProps) => {
     }
     // 获取当前的用户正在输入的字符串中，最后一个关键词
     const FormatKeyWord = (str: string): string => {
-        const IndexOfand = str.lastIndexOf("&")
-        const IndexofOr = str.lastIndexOf("|")
-        if (IndexOfand > IndexofOr) return str.substring(IndexOfand + 1).trim()
-        if (IndexOfand < IndexofOr) return str.substring(IndexofOr + 1).trim()
+        const IndexOfand = str.lastIndexOf("and")
+        const IndexofOr = str.lastIndexOf("or")
+        if (IndexOfand > IndexofOr) return str.substring(IndexOfand + 3).trim()
+        if (IndexOfand < IndexofOr) return str.substring(IndexofOr + 2).trim()
         return str.trim()
     }
     // 替换当前的Keyword
     const ReplaceKeyWord = (oldstr: string, value: string) => {
-        const IndexofKeyword = oldstr.indexOf(FormatKeyWord(oldstr))
+        const IndexofKeyword = oldstr.lastIndexOf(FormatKeyWord(oldstr))
         const OldComple = oldstr.substring(0, IndexofKeyword)
         return OldComple + value
+    }
+    const ForMatInputValue = (str: string) => {
+        return str.replaceAll(/ *and */g, " and ").replaceAll(/ *or */g, " or ")
     }
     // 当input值 发生变化的时候 更新Content 并且限制请求的频率 当输入的值 一秒内不变化的时候 进行请求
     useEffect(() => {
