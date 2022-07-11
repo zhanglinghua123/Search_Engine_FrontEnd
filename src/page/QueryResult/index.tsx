@@ -123,18 +123,40 @@ export const QueryResult = () => {
     const navigate = useNavigate()
 
     const showRecommend = () => {
-        let num = result.recommend.length > 5 ? result.recommend.length / 5 : 1;
         return (
-            <Stack direction={"row"} spacing={2} sx={{marginTop: 2, maxWidth: '80px'}}>
-                {
-                    result.recommend.map(i => {
-                        return <Avatar sx={{width: 50, height: 50}} src={i[3]} onClick={() => {
-                            navigate(`/result?search=${i[1]}`)
-                            window.location.reload()
-                        }}/>
-                    })
-                }
-            </Stack>
+            <div>
+                <Stack direction={"row"} spacing={3} sx={{marginTop: 2, maxWidth: '60px'}}>
+                    {
+                        result.recommend.slice(0,5).map(i => {
+                            return(
+                                <Stack direction={'column'} spacing={1}>
+                                    <Avatar sx={{width: 50, height: 50}} src={i[3]} onClick={() => {
+                                        navigate(`/result?search=${i[1]}`)
+                                        window.location.reload()
+                                    }}/>
+                                    <span style={{color: 'gray', textAlign: 'center'}}>{i[1]}</span>
+                                </Stack>
+                            )
+                        })
+                    }
+                </Stack>
+                <Stack direction={"row"} spacing={3} sx={{marginTop: 2, maxWidth: '60px'}}>
+                    {
+                        result.recommend.slice(5,result.recommend.length).map(i => {
+                            return(
+                                <Stack direction={'column'} spacing={1}>
+                                    <Avatar sx={{width: 50, height: 50}} src={i[3]} onClick={() => {
+                                        navigate(`/result?search=${i[1]}`)
+                                        window.location.reload()
+                                    }}/>
+                                    <span style={{color: 'gray', textAlign: 'center'}}>{i[1]}</span>
+                                </Stack>
+                            )
+                        })
+                    }
+                </Stack>
+            </div>
+
         )
     }
 
