@@ -29,7 +29,7 @@ export const Head = (props: HeadProps) => {
             }).reverse()}
             <QueryDiv ContainerStyle={{
                 color: "white",
-            }} fontSize={30}></QueryDiv>
+            }} fontSize={30} RememberHistory></QueryDiv>
             <img src={logo} style={{ width: "120px", height: "45px" }} alt="logo" />
         </div>
     );

@@ -75,7 +75,16 @@ export const QueryDiv = (props: QueryDivProps) => {
     // Format 历史记录
     const FormatHistory = () => {
         const history = sessionStorage.getItem("history")
-        return (history?.split("*") || []).sort((a, b) => a.length - b.length)
+        return removeDuplicate((history?.split("*") || []).sort((a, b) => a.length - b.length))
+    }
+    function removeDuplicate(arr: string[]) {
+        const newArr: string[] = []
+        arr.forEach(item => {
+            if (!newArr.includes(item)) {
+                newArr.push(item)
+            }
+        })
+        return newArr
     }
     // 当前与 InputValue 匹配的 字符串数组
     const PrefixInputValue = () => {
