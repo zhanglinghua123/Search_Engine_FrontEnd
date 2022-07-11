@@ -75,7 +75,16 @@ export const QueryDiv = (props: QueryDivProps) => {
     // Format 历史记录
     const FormatHistory = () => {
         const history = sessionStorage.getItem("history")
-        return (history?.split("*") || []).sort((a, b) => a.length - b.length)
+        return removeDuplicate((history?.split("*") || []).sort((a, b) => a.length - b.length))
+    }
+    function removeDuplicate(arr: string[]) {
+        const newArr: string[] = []
+        arr.forEach(item => {
+            if (!newArr.includes(item)) {
+                newArr.push(item)
+            }
+        })
+        return newArr
     }
     // 当前与 InputValue 匹配的 字符串数组
     const PrefixInputValue = () => {
@@ -112,10 +121,10 @@ export const QueryDiv = (props: QueryDivProps) => {
     }
     // 获取当前的用户正在输入的字符串中，最后一个关键词
     const FormatKeyWord = (str: string): string => {
-        const IndexOfand = str.lastIndexOf("&")
-        const IndexofOr = str.lastIndexOf("|")
-        if (IndexOfand > IndexofOr) return str.substring(IndexOfand + 1).trim()
-        if (IndexOfand < IndexofOr) return str.substring(IndexofOr + 1).trim()
+        const IndexOfand = str.lastIndexOf("and")
+        const IndexofOr = str.lastIndexOf("or")
+        if (IndexOfand > IndexofOr) return str.substring(IndexOfand + 3).trim()
+        if (IndexOfand < IndexofOr) return str.substring(IndexofOr + 2).trim()
         return str.trim()
     }
     // 替换当前的Keyword
